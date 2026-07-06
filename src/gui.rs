@@ -186,17 +186,11 @@ impl eframe::App for BunkaGuiApp {
 
 /// GUI版のエントリーポイント
 pub fn run_gui() {
-    use windows::Win32::Foundation::ERROR_ALREADY_EXISTS;
-    use windows::Win32::Foundation::GetLastError;
-    use windows::Win32::System::Threading::CreateMutexW;
-
-    // Mutexの名前を作成して二重起動チェック
-    unsafe {
-        let _handle = CreateMutexW(None, true, windows::core::w!("Global\\BunkaGuiAppMutex"));
-        if GetLastError() == ERROR_ALREADY_EXISTS {
-            return;
-        }
-    }
+    // 共有ライブラリを使用して二重起動チェック
+    let _guard = match common_lib::desktop::acquire_single_instance("Global\\BunkaGuiAppMutex") {
+        Some(guard) => guard,
+        None => return,
+    };
 
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()

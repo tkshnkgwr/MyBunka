@@ -77,7 +77,7 @@ GUI版は、`egui`/`eframe` が制御するインタラクティブな状態更�
 
 ```mermaid
 graph TD
-    StartGUI([アプリケーション起動]) --> MutexCheck{Named Mutex の確認}
+    StartGUI([アプリケーション起動]) --> MutexCheck{"common_lib を用いた<br>Named Mutex の確認"}
     
     MutexCheck -- すでに起動中 --> Terminate[即座にプロセスを正常終了]
     MutexCheck -- 未起動 --> InitOptions[NativeOptions の初期化]

@@ -2,8 +2,8 @@ name: Release
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -12,20 +12,56 @@ jobs:
   build-release:
     name: Build & Release (Windows)
     runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: bunka
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          path: bunka
+          fetch-depth: 0
+
+      - name: Checkout common_lib
+        uses: actions/checkout@v4
+        with:
+          repository: tkshnkgwr/common_lib
+          path: common_lib
+          token: ${{ secrets.PAT || github.token }}
+
+      - name: Check version and determine release
+        id: check_version
+        shell: pwsh
+        run: |
+          # Cargo.toml からバージョンを取得
+          $version = (Get-Content Cargo.toml | Select-String -Pattern '^version\s*=\s*"(.*)"').Matches.Groups[1].Value
+          $tag_name = "v$version"
+          Write-Output "Detected version in Cargo.toml: $version ($tag_name)"
+          
+          # リモートリポジトリに既存タグが完全一致で存在するか確認
+          $tag_exists = git ls-remote origin refs/tags/$tag_name
+          if ($tag_exists) {
+            Write-Output "Tag refs/tags/$tag_name already exists. Skipping release."
+            Add-Content -Path $env:GITHUB_ENV -Value "SKIP_RELEASE=true"
+          } else {
+            Write-Output "Tag refs/tags/$tag_name does not exist. Proceeding with release."
+            Add-Content -Path $env:GITHUB_ENV -Value "SKIP_RELEASE=false"
+            Add-Content -Path $env:GITHUB_ENV -Value "RELEASE_TAG=$tag_name"
+          }
 
       - name: Install Rust
+        if: env.SKIP_RELEASE != 'true'
         uses: dtolnay/rust-toolchain@stable
 
       # CLI版のビルド
       - name: Build CLI release
+        if: env.SKIP_RELEASE != 'true'
         run: cargo build --release --verbose
 
       # CLI版バイナリの退避
       - name: Package CLI binary
+        if: env.SKIP_RELEASE != 'true'
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path target/dist
@@ -33,24 +69,29 @@ jobs:
 
       # GUI版のビルド (gui feature を有効化)
       - name: Build GUI release
+        if: env.SKIP_RELEASE != 'true'
         run: cargo build --release --features gui --verbose
 
       # GUI版バイナリの退避とリネーム
       - name: Package GUI binary
+        if: env.SKIP_RELEASE != 'true'
         shell: pwsh
         run: |
           Copy-Item -Path target/release/bunka.exe -Destination target/dist/bunka-gui.exe -Force
 
       # 両方のバイナリを含む zip アーカイブの作成
       - name: Archive production binaries
+        if: env.SKIP_RELEASE != 'true'
         shell: pwsh
         run: |
           Compress-Archive -Path target/dist/bunka.exe, target/dist/bunka-gui.exe -DestinationPath target/dist/bunka-windows-x64.zip -Force
 
       # GitHub Release の作成とアップロード
       - name: Create GitHub Release and Upload Asset
+        if: env.SKIP_RELEASE != 'true'
         uses: softprops/action-gh-release@v2
         with:
-          files: target/dist/bunka-windows-x64.zip
+          tag_name: ${{ env.RELEASE_TAG }}
+          files: bunka/target/dist/bunka-windows-x64.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

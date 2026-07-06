@@ -485,6 +485,7 @@ checksum = "72f5acc6cb2ba439de613abc23857ec3d78374d8ed5ac84e9d11336e87da8649"
 name = "bunka"
 version = "0.4.3"
 dependencies = [
+ "common_lib",
  "eframe",
  "winapi",
  "windows",
@@ -643,6 +644,14 @@ checksum = "ba5a308b75df32fe02788e748662718f03fde005016435c444eea572398219fd"
 dependencies = [
  "bytes",
  "memchr",
+]
+
+[[package]]
+name = "common_lib"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "windows",
 ]
 
 [[package]]

@@ -14,15 +14,30 @@ jobs:
     name: Run cargo test and cargo build (Windows)
     runs-on: windows-latest
 
+    defaults:
+      run:
+        working-directory: bunka
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        path: bunka
+
+    - name: Checkout common_lib
+      uses: actions/checkout@v4
+      with:
+        repository: tkshnkgwr/common_lib
+        path: common_lib
+        token: ${{ secrets.PAT || github.token }}
     
     - name: Install Rust
       uses: dtolnay/rust-toolchain@stable
       
     - name: Rust cache
       uses: Swatinem/rust-cache@v2
+      with:
+        workspaces: bunka
       
     - name: Run cargo test (CLI)
       run: cargo test --verbose

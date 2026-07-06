@@ -8,6 +8,8 @@ license = "MIT"
 eframe = { version = "0.35.0", optional = true }
 windows = { version = "0.62.2", features = ["Win32_System_Threading", "Win32_Foundation", "Win32_Security"], optional = true }
 winapi = { version = "0.3.9", features = ["winuser", "windef"], optional = true }
+# 2026-07-03: 共有ライブラリの参照追加
+common_lib = { path = "../common_lib", features = ["windows_desktop"] }
 
 [features]
 default = []

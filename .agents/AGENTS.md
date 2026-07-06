@@ -66,4 +66,7 @@ AIがコードの変更、機能追加、リファクタリングなどを行う
 - **CI/CD・自動アップデート設定の維持**:
   - [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) (ビルド高速化のための `rust-cache` 含む), [`.github/workflows/release.yml`](../.github/workflows/release.yml) および [`.github/dependabot.yml`](../.github/dependabot.yml) を破壊しないこと。
   - 依存アクションのバージョン（`checkout@v4`, `action-gh-release@v2` など）やビルド構成の変更時には、これらの構成ファイルも動作可能な状態に維持し、整合性を保つこと。
-
+  - **自動リリース（バージョン更新検知）の仕組みとルール**:
+    - `release.yml` は `main` ブランチへのプッシュ（またはマージ）時にトリガーされ、`Cargo.toml` 内の `version` を自動的に読み取って新規リリース判定を行う。
+    - リモートリポジトリにそのバージョンの Git タグ（例: `refs/tags/v0.4.3`）がすでに存在するかどうかを完全一致で自動チェックし、存在しない場合のみ新規リリースビルドを実行して GitHub Release と同時にタグを自動生成する。
+    - 開発者は、リリースを行いたいタイミングで `Cargo.toml` の `version` をカウントアップして `main` ブランチにプッシュ・マージすること。

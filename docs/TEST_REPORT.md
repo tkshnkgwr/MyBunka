@@ -119,19 +119,32 @@ bunka - 小数点数から分数への近似変換ツール
 - **実行結果**: 期待通りのエラーメッセージが stderr に出力され、終了コード 1 で終了。
 - **ステータス**: **PASS**
 
+#### TC-15: 二重起動の防止 (Windows)
+- **手順**:
+  1. `cargo run --features gui` を実行して、1つ目のインスタンスを起動する。
+  2. そのまま、別のターミナルから再度 `cargo run --features gui` を実行する。
+- **期待される挙動**:
+  - 2つ目のプロセスが即座にエラーなし（終了コード 0）で終了すること。
+- **実行結果**: 1つ目のインスタンスが起動している間、2つ目のプロセスは起動処理に入らずに即座に正常終了することを確認。
+- **ステータス**: **PASS**
+
 ---
 
 ## 3. 自動テストと継続的テスト
 
-現在、[src/lib.rs](../src/lib.rs) の末尾に自動検証用の `#[test]` 単体テストモジュールが組み込まれています。
+現在、`bunka` および共有ライブラリ `common_lib` に自動検証用の `#[test]` 単体テストモジュールが組み込まれています。
 
 以下のコマンドを実行することで、すべてのテストケースを自動で一括検証できます：
 
 ```powershell
-PS bunka> cargo test
+# common_lib 側
+PS common_lib> cargo test --all-features
+
+# bunka 側
+PS bunka> cargo test --all-features
 ```
 
-### 実行結果：
+### 実行結果 (bunka)：
 ```powershell
 running 3 tests
 test tests::test_approximate_fraction_negative ... ok
@@ -142,5 +155,5 @@ test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 ```
 
 すべての単体テストケースにおいて期待通りの値が計算され、**PASS (ok)** することを確認済みです。
-また、GitHub Actions 上でこれらのテストが PR やプッシュ時に自動実行される CI 環境（`.github/workflows/ci.yml`、ビルドキャッシュに `Swatinem/rust-cache@v2` を導入済み）も構築完了しています。
+また、GitHub Actions 上でこれらのテストが PR やプッシュ時に自動実行される CI環境（`.github/workflows/ci.yml`、ビルドキャッシュに `Swatinem/rust-cache@v2` を導入済み）も構築完了しています。
 

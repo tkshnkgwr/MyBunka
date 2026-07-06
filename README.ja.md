@@ -1,5 +1,6 @@
 # Bunka (分数近似ツール)
 
+[![Latest Release](https://img.shields.io/github/v/release/tkshnkgwr/bunka)](https://github.com/tkshnkgwr/bunka/releases)
 [![CI](https://github.com/tkshnkgwr/bunka/actions/workflows/ci.yml/badge.svg)](https://github.com/tkshnkgwr/bunka/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Rust](https://img.shields.io/badge/Rust-2024-orange?logo=rust)](https://www.rust-lang.org/)
