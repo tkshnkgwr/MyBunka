@@ -64,27 +64,27 @@ jobs:
         if: env.SKIP_RELEASE != 'true'
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Force -Path target/dist
-          Copy-Item -Path target/release/bunka.exe -Destination target/dist/bunka.exe -Force
+          Copy-Item -Path target/release/bunka.exe -Destination target/release/bunka-cli-temp.exe -Force
 
       # GUI版のビルド (gui feature を有効化)
       - name: Build GUI release
         if: env.SKIP_RELEASE != 'true'
         run: cargo build --release --features gui --verbose
 
-      # GUI版バイナリの退避とリネーム
+      # GUI版バイナリの退避とリネーム、および CLI 版の復元
       - name: Package GUI binary
         if: env.SKIP_RELEASE != 'true'
         shell: pwsh
         run: |
-          Copy-Item -Path target/release/bunka.exe -Destination target/dist/bunka-gui.exe -Force
+          Copy-Item -Path target/release/bunka.exe -Destination target/release/bunka-gui.exe -Force
+          Move-Item -Path target/release/bunka-cli-temp.exe -Destination target/release/bunka.exe -Force
 
       # 両方のバイナリを含む zip アーカイブの作成
       - name: Archive production binaries
         if: env.SKIP_RELEASE != 'true'
         shell: pwsh
         run: |
-          Compress-Archive -Path target/dist/bunka.exe, target/dist/bunka-gui.exe -DestinationPath target/dist/bunka-windows-x64.zip -Force
+          Compress-Archive -Path target/release/bunka.exe, target/release/bunka-gui.exe -DestinationPath target/release/bunka-windows-x64.zip -Force
 
       # GitHub Release の作成とアップロード
       - name: Create GitHub Release and Upload Asset
@@ -92,6 +92,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.RELEASE_TAG }}
-          files: bunka/target/dist/bunka-windows-x64.zip
+          files: bunka/target/release/bunka-windows-x64.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

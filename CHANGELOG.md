@@ -5,7 +5,7 @@
 このファイルのフォーマットは [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) に基づいており、
 このプロジェクトは [セマンティック バージョニング](https://semver.org/spec/v2.0.0.html) に準拠しています。
 
-## [0.4.5] - 2026-07-06
+## [0.4.5] - 2026-07-08
 
 ### 追加 (Added)
 - **GitHub Actions での自動タグ作成・リリース機能**:
@@ -16,7 +16,7 @@
   - `.github/workflows/ci.yml` および `release.yml` において、`actions/checkout` を `@v4` に、`softprops/action-gh-release` を `@v2` に設定。
   - 依存共有ライブラリ `common_lib` を `bunka` と同じ階層に並列で自動チェックアウトするステップを追加（`secrets.PAT` 未設定時のフォールバックとして `token: ${{ secrets.PAT || github.token }}` を設定）。
   - `defaults.run.working-directory` を使用して、ビルドおよびテストが `bunka` プロジェクトフォルダ内で実行されるよう構成。
-  - `release.yml` 内のリリースアセットの指定パスを、リポジトリルートからの相対パス `bunka/target/dist/bunka-windows-x64.zip` に修正。
+  - `release.yml` 内のリリースアセットの指定パスを、リポジトリルートからの相対パス `bunka/target/release/bunka-windows-x64.zip` に修正（`target/dist` の使用を廃止し、`target/release` 内で完結するように修正）。
 - **READMEでのリリースステータスバッジ追加**:
   - `README.md` および `README.ja.md` のタイトル直下に、GitHubの最新リリースステータスバッジを追加。
 
