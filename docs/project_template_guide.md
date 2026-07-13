@@ -65,7 +65,7 @@ VS Code 利用者向けの設定を定義します。ファイルの保存時に
 ## 2. GitHub Actions CI/CD ワークフロー
 
 ### 2.1 継続的インテグレーション (`ci.yml`)
-プルおよびプルリクエスト発生時に Windows 環境で自動でテストとビルドを実行し、コードの健全性を検証します。ビルド高速化のためにキャッシュアクションを導入しています。
+プルおよびプルリクエスト発生時に Windows 環境で自動でテストとビルドを実行し、コードの健全性を検証します。外部ライブラリなどの別リポジトリに依存している場合のチェックアウト設定や、作業ディレクトリの設定が含まれています。
 
 **設定パス**: `.github/workflows/ci.yml`
 
@@ -86,15 +86,30 @@ jobs:
     name: Run cargo test and cargo build (Windows)
     runs-on: windows-latest
 
+    defaults:
+      run:
+        working-directory: <YOUR_APP_NAME> # アプリフォルダ内で実行する場合
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        path: <YOUR_APP_NAME>
+
+    - name: Checkout dependent library (Optional)
+      uses: actions/checkout@v4
+      with:
+        repository: <YOUR_GITHUB_ORG_OR_USER>/<DEPENDENT_LIB_NAME>
+        path: <DEPENDENT_LIB_NAME>
+        token: ${{ secrets.PAT || github.token }} # プライベートリポジトリ対応
     
     - name: Install Rust
       uses: dtolnay/rust-toolchain@stable
       
     - name: Rust cache
       uses: Swatinem/rust-cache@v2
+      with:
+        workspaces: <YOUR_APP_NAME>
       
     - name: Run cargo test
       run: cargo test --verbose
@@ -104,7 +119,7 @@ jobs:
 ```
 
 ### 2.2 継続的デプロイ・自動リリース (`release.yml`)
-リリースタグ（例: `v0.2.1`）が GitHub にプッシュされた際、Windows 向けに CLI 版および GUI 版バイナリをリリースビルドし、一つの zip アーカイブにまとめて GitHub Releases へ自動デプロイします。
+`main` ブランチへのプッシュをトリガーとして `Cargo.toml` 内のバージョンと既存のGitタグを照合し、新バージョンの場合に自動でGitタグを作成してリリースをデプロイします。パッケージング処理は `target/release` ディレクトリ内で完結するように構成されています。
 
 **設定パス**: `.github/workflows/release.yml`
 
@@ -113,8 +128,8 @@ name: Release
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -123,46 +138,87 @@ jobs:
   build-release:
     name: Build & Release (Windows)
     runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: <YOUR_APP_NAME>
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          path: <YOUR_APP_NAME>
+          fetch-depth: 0
+
+      - name: Checkout dependent library (Optional)
+        uses: actions/checkout@v4
+        with:
+          repository: <YOUR_GITHUB_ORG_OR_USER>/<DEPENDENT_LIB_NAME>
+          path: <DEPENDENT_LIB_NAME>
+          token: ${{ secrets.PAT || github.token }}
+
+      - name: Check version and determine release
+        id: check_version
+        shell: pwsh
+        run: |
+          # Cargo.toml からバージョンを取得
+          $version = (Get-Content Cargo.toml | Select-String -Pattern '^version\s*=\s*"(.*)"').Matches.Groups[1].Value
+          $tag_name = "v$version"
+          Write-Output "Detected version in Cargo.toml: $version ($tag_name)"
+          
+          # リモートリポジトリに既存タグが完全一致で存在するか確認
+          $tag_exists = git ls-remote origin refs/tags/$tag_name
+          if ($tag_exists) {
+            Write-Output "Tag refs/tags/$tag_name already exists. Skipping release."
+            Add-Content -Path $env:GITHUB_ENV -Value "SKIP_RELEASE=true"
+          } else {
+            Write-Output "Tag refs/tags/$tag_name does not exist. Proceeding with release."
+            Add-Content -Path $env:GITHUB_ENV -Value "SKIP_RELEASE=false"
+            Add-Content -Path $env:GITHUB_ENV -Value "RELEASE_TAG=$tag_name"
+          }
 
       - name: Install Rust
+        if: env.SKIP_RELEASE != 'true'
         uses: dtolnay/rust-toolchain@stable
 
       # 1. CLI版のビルド
       - name: Build CLI release
+        if: env.SKIP_RELEASE != 'true'
         run: cargo build --release --verbose
 
       # 2. CLI版バイナリの退避
       - name: Package CLI binary
+        if: env.SKIP_RELEASE != 'true'
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Force -Path target/dist
-          Copy-Item -Path target/release/<YOUR_APP_NAME>.exe -Destination target/dist/<YOUR_APP_NAME>.exe -Force
+          Copy-Item -Path target/release/<YOUR_APP_NAME>.exe -Destination target/release/<YOUR_APP_NAME>-cli-temp.exe -Force
 
       # 3. GUI版のビルド (gui feature がある場合)
       - name: Build GUI release
+        if: env.SKIP_RELEASE != 'true'
         run: cargo build --release --features gui --verbose
 
-      # 4. GUI版バイナリの退避とリネーム
+      # 4. GUI版バイナリの退避とリネーム、および CLI 版の復元
       - name: Package GUI binary
+        if: env.SKIP_RELEASE != 'true'
         shell: pwsh
         run: |
-          Copy-Item -Path target/release/<YOUR_APP_NAME>.exe -Destination target/dist/<YOUR_APP_NAME>-gui.exe -Force
+          Copy-Item -Path target/release/<YOUR_APP_NAME>.exe -Destination target/release/<YOUR_APP_NAME>-gui.exe -Force
+          Move-Item -Path target/release/<YOUR_APP_NAME>-cli-temp.exe -Destination target/release/<YOUR_APP_NAME>.exe -Force
 
       # 5. 両方のバイナリを含む zip アーカイブの作成
       - name: Archive production binaries
+        if: env.SKIP_RELEASE != 'true'
         shell: pwsh
         run: |
-          Compress-Archive -Path target/dist/<YOUR_APP_NAME>.exe, target/dist/<YOUR_APP_NAME>-gui.exe -DestinationPath target/dist/<YOUR_APP_NAME>-windows-x64.zip -Force
+          Compress-Archive -Path target/release/<YOUR_APP_NAME>.exe, target/release/<YOUR_APP_NAME>-gui.exe -DestinationPath target/release/<YOUR_APP_NAME>-windows-x64.zip -Force
 
       # 6. GitHub Release の作成とアップロード
       - name: Create GitHub Release and Upload Asset
+        if: env.SKIP_RELEASE != 'true'
         uses: softprops/action-gh-release@v2
         with:
-          files: target/dist/<YOUR_APP_NAME>-windows-x64.zip
+          tag_name: ${{ env.RELEASE_TAG }}
+          files: <YOUR_APP_NAME>/target/release/<YOUR_APP_NAME>-windows-x64.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```

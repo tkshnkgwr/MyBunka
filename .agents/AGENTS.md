@@ -33,6 +33,11 @@ Windows上での多重起動を防ぐため、`windows` クレート等の Named
   Windows環境で `cargo run` などの出力を表示する際、日本語が文字化けする場合は、ターミナルのエンコーディングを UTF-8 (`chcp 65001` または `[Console]::OutputEncoding = [System.Text.Encoding]::UTF8`) に設定すること。
 
 ## 6. ドキュメント自動更新ルール（AI向け）
+
+> [!IMPORTANT]
+> **Markdownのみの修正における適用例外**:
+> 変更がMarkdownファイル（`**/*.md`）のみである場合は、このドキュメント自動更新ルール（`CHANGELOG.md`の自動更新、仕様書の更新等）をすべて免除（スキップ）する。
+
 AIがコードの変更、機能追加、リファクタリングなどを行う際は、必ず以下のドキュメントをセットで更新または作成すること。
 
 - **`CHANGELOG.md` の自動更新**:
@@ -65,6 +70,8 @@ AIがコードの変更、機能追加、リファクタリングなどを行う
   - [`.editorconfig`](../.editorconfig) および [`.vscode/settings.json`](../.vscode/settings.json) で規定されたコーディングスタイル（インデント幅、改行コード LF、UTF-8 など）を遵守し、プロジェクト全体の書式の一貫性を維持すること。
 - **CI/CD・自動アップデート設定の維持**:
   - [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) (ビルド高速化のための `rust-cache` 含む), [`.github/workflows/release.yml`](../.github/workflows/release.yml) および [`.github/dependabot.yml`](../.github/dependabot.yml) を破壊しないこと。
+  - **Markdownのみの修正におけるCIビルド除外**:
+    無駄なCIビルドを防ぐため、Markdownファイル（`**/*.md`）のみの修正の際は GitHub Actions（CI/Releaseワークフロー）の実行をスキップするよう `paths-ignore` が設定されている。この設定を維持・尊重すること。
   - 依存アクションのバージョン（`checkout@v4`, `action-gh-release@v2` など）やビルド構成の変更時には、これらの構成ファイルも動作可能な状態に維持し、整合性を保つこと。
   - **自動リリース（バージョン更新検知）の仕組みとルール**:
     - `release.yml` は `main` ブランチへのプッシュ（またはマージ）時にトリガーされ、`Cargo.toml` 内の `version` を自動的に読み取って新規リリース判定を行う。

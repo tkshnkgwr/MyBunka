@@ -98,8 +98,12 @@ GUI版は、Cargo features に `gui` を指定してビルドすることで、�
 ### 3.2 CI/CD および自動リリース仕様
 - **継続的インテグレーション (CI)**:
   - プッシュおよびプルリクエスト発生時に Windows 環境で自動ビルドと `cargo test` を実行し、コードの健全性を保ちます（[.github/workflows/ci.yml](../.github/workflows/ci.yml)）。
-- **継続的デプロイ (CD)**:
-  - リリースタグ（`v*`）のプッシュをトリガーとして、Windows 向けに CLI 版および GUI 版バイナリを双方リリースビルドし、1つの zip アーカイブ（`bunka-windows-x64.zip`）にまとめて GitHub Releases に自動デプロイします（[.github/workflows/release.yml](../.github/workflows/release.yml)）。
+  - 近似アルゴリズムが依存している共有ライブラリ `common_lib` についても、`bunka` と同じ階層に並列で自動チェックアウトするステップ（`secrets.PAT` 未設定時は自動的に `github.token` にフォールバック）を組み込んでいます。
+- **継続的デプロイ (CD) および自動リリース判定**:
+  - `main` ブランチへのプッシュ（またはプルリクエストのマージ）時に、ワークフローが自動でトリガーされます（[.github/workflows/release.yml](../.github/workflows/release.yml)）。
+  - `Cargo.toml` の `version` を自動的に読み込み、リモートリポジトリ上の既存の Git タグ（例: `refs/tags/v0.4.5`）と照合します。
+  - まだリリースされていない新バージョンの場合に限り、自動で Git タグを生成・プッシュし、GitHub Release の作成を行います。
+  - Windows 向けに CLI 版および GUI 版バイナリを双方リリースビルドし、1つの zip アーカイブ（`bunka-windows-x64.zip`）にまとめて GitHub Releases に自動デプロイします。このパッケージング処理は `target/release` ディレクトリ内で完結するように構成されています。
 
 ### 3.3 依存関係の自動更新
 - **[dependabot.yml](../.github/dependabot.yml)**:
