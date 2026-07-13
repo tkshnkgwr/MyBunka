@@ -21,10 +21,10 @@ pub fn run_cli() {
         process::exit(0);
     }
 
-    let val: f64 = match val_str.parse() {
+    let val: f64 = match crate::parse_decimal_or_percent(val_str) {
         Ok(n) => n,
         Err(_) => {
-            eprintln!("エラー: '{}' は無効な浮動小数点数です", val_str);
+            eprintln!("エラー: '{}' は無効な数値またはパーセント表記です", val_str);
             process::exit(1);
         }
     };

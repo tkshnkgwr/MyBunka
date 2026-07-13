@@ -23,7 +23,7 @@ impl Default for BunkaGuiApp {
 
 impl BunkaGuiApp {
     fn recalculate(&mut self) {
-        if let Ok(val) = self.input_str.parse::<f64>() {
+        if let Ok(val) = crate::parse_decimal_or_percent(&self.input_str) {
             let tol = 10f64.powi(self.tolerance_exp);
             let (num, den, _) = approximate_fraction(val, self.max_den, tol);
             self.numerator = num;

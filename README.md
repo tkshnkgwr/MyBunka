@@ -8,7 +8,9 @@
 
 [[日本語版はこちら]](README.ja.md)
 
-`bunka` is a lightweight Rust command-line utility that approximates any decimal (floating-point number) into its fractional representation (numerator/denominator) using the **Continued Fraction Expansion** algorithm.
+![BUNKA GUI Screenshot](docs/images/screenshot.png)
+
+`bunka` is a lightweight Rust command-line and GUI utility that approximates any decimal or percentage input (e.g. `10%`) into its fractional representation (numerator/denominator) using the **Continued Fraction Expansion** algorithm.
 
 ## Features
 
@@ -69,6 +71,14 @@ $ bunka 3.14159265 -d 100
 # Increase precision criteria
 $ bunka 0.142857 -t 1e-10 -d 10000000
 142857/1000000
+
+# Parse percentage input (automatically divided by 100)
+$ bunka 10%
+1/10
+
+# Parse negative percentage input with spaces
+$ bunka "  -5.5 % "
+-11/200
 ```
 
 ### Errors
@@ -81,7 +91,7 @@ $ bunka
 例) bunka 0.142857  ->  1/7
 
 $ bunka invalid
-エラー: 'invalid' は無効な浮動小数点数です
+エラー: 'invalid' は無効な数値またはパーセント表記です
 ```
 
 ## Documentation

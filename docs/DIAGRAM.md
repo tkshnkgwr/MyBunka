@@ -23,9 +23,9 @@ graph TD
     CheckVersion -- はい --> PrintVersion[stdout に 'bunka バージョン' を出力]
     PrintVersion --> ExitSuccess
     
-    CheckVersion -- いいえ --> ParseVal{第1引数を f64 に変換}
+    CheckVersion -- いいえ --> ParseVal{第1引数をパース<br>(f64 または % 表記)}
     
-    ParseVal -- 失敗 --> PrintParseError[stderr に '無効な浮動小数点' エラーを出力]
+    ParseVal -- 失敗 --> PrintParseError[stderr に '無効な数値・パーセント表記' エラーを出力]
     PrintParseError --> ExitFail
     
     ParseVal -- 成功 val --> InitParams["デフォルト値設定:<br>max_den = 100,000<br>tolerance = 1e-6"]

@@ -26,10 +26,12 @@
 | TC-03 | `3.14159265` | `355/113` | `355/113` | **PASS** | 円周率 $\pi$ の標準的な近似分数（密率） |
 | TC-04 | `0.0` | `0/1` | `0/1` | **PASS** | ゼロ値に対する境界値処理 |
 | TC-05 | `-0.5` | `-1/2` | `-1/2` | **PASS** | 負の小数点数に対する処理 |
-| TC-08 | `--version` | `bunka 0.4.1` | `bunka 0.4.1` | **PASS** | バージョン情報表示オプション（Exit Code 0） |
+| TC-08 | `--version` | `bunka 0.4.6` | `bunka 0.4.6` | **PASS** | バージョン情報表示オプション（Exit Code 0） |
 | TC-09 | `--help` | 詳細ヘルプ表示 | 詳細ヘルプ表示 | **PASS** | ヘルプ表示オプション（Exit Code 0） |
 | TC-10 | `3.14159265 -d 100` | `22/7` | `22/7` | **PASS** | 最大分母を100に制限したため、$\pi$ の近似として $22/7$ が採用される |
 | TC-11 | `0.142857 -t 1e-10 -d 10000000` | `142857/1000000` | `142857/1000000` | **PASS** | 許容誤差を非常に小さくし最大分母を拡張したことで、元の小数通りの分数に変換 |
+| TC-16 | `10%` | `1/10` | `1/10` | **PASS** | パーセント表記の入力（ $10\% = 0.1$ ）の近似 |
+| TC-17 | `  -5.5 % ` | `-11/200` | `-11/200` | **PASS** | 前後の余白およびパーセント記号前のスペースを含む負のパーセント表記の近似 |
 
 #### コマンドの実行例：
 ```powershell
@@ -81,7 +83,7 @@ bunka - 小数点数から分数への近似変換ツール
   - 終了コード `1` で終了すること。
   - 標準エラー出力（`stderr`）に以下のエラーメッセージが出力されること：
     ```
-    エラー: 'invalid' は無効な浮動小数点数です
+    エラー: 'invalid' は無効な数値またはパーセント表記です
     ```
 - **実行結果**: 期待通りのパースエラーメッセージが stderr に出力され、終了コード 1 で終了。
 - **ステータス**: **PASS**
@@ -119,7 +121,18 @@ bunka - 小数点数から分数への近似変換ツール
 - **実行結果**: 期待通りのエラーメッセージが stderr に出力され、終了コード 1 で終了。
 - **ステータス**: **PASS**
 
-#### TC-15: 二重起動の防止 (Windows)
+#### TC-18: 不正なパーセント表記
+- **入力**: `10%%`
+- **期待される挙動**:
+  - 終了コード `1` で終了すること。
+  - 標準エラー出力（`stderr`）に以下のエラーメッセージが出力されること：
+    ```
+    エラー: '10%%' は無効な数値またはパーセント表記です
+    ```
+- **実行結果**: 期待通りのエラーメッセージが stderr に出力され、終了コード 1 で終了。
+- **ステータス**: **PASS**
+
+#### TC-19: 二重起動の防止 (Windows)
 - **手順**:
   1. `cargo run --features gui` を実行して、1つ目のインスタンスを起動する。
   2. そのまま、別のターミナルから再度 `cargo run --features gui` を実行する。
@@ -146,12 +159,13 @@ PS bunka> cargo test --all-features
 
 ### 実行結果 (bunka)：
 ```powershell
-running 3 tests
+running 4 tests
 test tests::test_approximate_fraction_negative ... ok
 test tests::test_approximate_fraction_positive ... ok
 test tests::test_approximate_fraction_zero ... ok
+test tests::test_parse_decimal_or_percent ... ok
 
-test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
 
 すべての単体テストケースにおいて期待通りの値が計算され、**PASS (ok)** することを確認済みです。
@@ -182,4 +196,29 @@ GitHub Actions のリリースアセット指定パスおよびビルド出力�
 
 ### 4.2 結論
 すべての検証項目において **PASS**。ワークフローおよびバージョンの更新後も、既存のプログラムおよびテストコードは完全に健全に動作することを確認しました。
+
+---
+
+## 5. 2026-07-13 パーセント入力機能追加に伴う品質検証結果
+
+パーセント入力への対応およびREADME用スクリーンショットの追加に伴い、以下のローカル検証を実施しました。
+
+### 5.1 実行した検証コマンド
+1. **自動テスト (Unit Tests)**:
+   ```powershell
+   cargo test --all-features
+   ```
+   - **結果**: 4件の単体テストすべてが正常終了 (`ok. 4 passed; 0 failed`)。新規追加した `parse_decimal_or_percent` のテストも完全にパスしていることを確認。
+2. **静的解析 (Clippy)**:
+   ```powershell
+   cargo clippy --all-targets -- -D warnings
+   ```
+   - **結果**: 警告やエラーなく正常終了。
+3. **CLIによるパーセント入力の手動検証**:
+   - `target/release/bunka.exe 10%` -> `1/10` (PASS)
+   - `target/release/bunka.exe "  -5.5 % "` -> `-11/200` (PASS)
+   - `target/release/bunka.exe 10%%` -> エラーメッセージ出力 (PASS)
+
+### 5.2 結論
+すべての検証項目において **PASS**。パーセント入力機能はCLIおよびGUI双方において正常に動作し、かつ既存の機能への影響（デグレーション）も発生していないことを確認しました。
 
