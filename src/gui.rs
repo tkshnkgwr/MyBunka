@@ -1,3 +1,5 @@
+//! GUI版のユーザーインターフェース (eframe/egui) を提供するモジュール。
+
 use crate::approximate_fraction;
 use eframe::egui;
 

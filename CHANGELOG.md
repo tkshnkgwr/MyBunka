@@ -5,6 +5,14 @@
 このファイルのフォーマットは [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) に基づいており、
 このプロジェクトは [セマンティック バージョニング](https://semver.org/spec/v2.0.0.html) に準拠しています。
 
+## [未リリース] - 2026-07-14
+
+### 追加 (Added)
+- **RustDocドキュメントの拡充**:
+  - `src/lib.rs` にクレート全体の概要を説明するモジュールレベルのドキュメントコメント (`//!`) を追加。
+  - `approximate_fraction` および `parse_decimal_or_percent` 関数に、引数・戻り値の詳細説明と、テスト可能な使用例 (`# 例`) を追加。
+  - `src/cli.rs` および `src/gui.rs` にそれぞれのモジュール役割を説明するドキュメントコメント (`//!`) を追加。
+
 ## [0.4.6] - 2026-07-13
 
 ### 追加 (Added)

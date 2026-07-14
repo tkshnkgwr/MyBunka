@@ -1,3 +1,5 @@
+//! CLI版のユーザーインターフェースとコマンドライン引数解析を提供するモジュール。
+
 use crate::approximate_fraction;
 use std::env;
 use std::process;
