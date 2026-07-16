@@ -21,7 +21,7 @@
   - CLI版およびGUI版の両方でパーセント入力が利用可能になりました。
   - パーセント表記のパースをテストする単体テストを追加。
 - **READMEにGUIのスクリーンショットを追加**:
-  - GUI版の画面イメージが分かりやすいよう、`README.md` および `README.ja.md` にスクリーンショットを掲載。
+  - GUI版の画面イメージが分かりやすいよう、`README.md` および `README_JA.md` にスクリーンショットを掲載。
 - **ソースコード内コメントの日本語化**:
   - `src/lib.rs` の連分数展開アルゴリズムなど、プログラム内の処理解説コメントを日本語で詳しく追記・整備しました。
 
@@ -38,7 +38,7 @@
   - `defaults.run.working-directory` を使用して、ビルドおよびテストが `bunka` プロジェクトフォルダ内で実行されるよう構成。
   - `release.yml` 内のリリースアセットの指定パスを、リポジトリルートからの相対パス `bunka/target/release/bunka-windows-x64.zip` に修正（`target/dist` の使用を廃止し、`target/release` 内で完結するように修正）。
 - **READMEでのリリースステータスバッジ追加**:
-  - `README.md` および `README.ja.md` のタイトル直下に、GitHubの最新リリースステータスバッジを追加。
+  - `README.md` および `README_JA.md` のタイトル直下に、GitHubの最新リリースステータスバッジを追加。
 
 ## [0.4.4] - 2026-07-03
 
@@ -51,11 +51,11 @@
 
 ### 追加 (Added)
 - **Rustおよびプラットフォームのステータスバッジの追加**:
-  - `README.md` および `README.ja.md` のタイトル直下に、Rustのエディション（2024）および動作対象プラットフォーム（Windows | macOS | Linux）のバッジを追加。
+  - `README.md` および `README_JA.md` のタイトル直下に、Rustのエディション（2024）および動作対象プラットフォーム（Windows | macOS | Linux）のバッジを追加。
 
 ### 修正 (Fixed)
 - **ライセンスステータスバッジの表示不具合の修正**:
-  - `README.md` および `README.ja.md` のライセンスバッジ（MIT）の画像URLが大文字小文字の誤り（`License` ではなく `license`）により表示されていなかった問題を、正しいURL（`license-MIT-yellow.svg`）に修正することで解消。
+  - `README.md` および `README_JA.md` のライセンスバッジ（MIT）の画像URLが大文字小文字の誤り（`License` ではなく `license`）により表示されていなかった問題を、正しいURL（`license-MIT-yellow.svg`）に修正することで解消。
 
 ## [0.4.2] - 2026-06-30
 
@@ -73,7 +73,7 @@
   - 開発およびテストの実行環境を Rust 1.96.0 にアップデートし、CLI版・GUI版のビルド健全性および全単体テストが正常にパスすることを確認。
   - Rust 1.96.0 環境でのバイナリフットプリント（ファイルサイズ）を再測定し、[docs/FOOTPRINTS.md](docs/FOOTPRINTS.md) および [docs/TEST_REPORT.md](docs/TEST_REPORT.md) を更新。
 - **READMEでのステータスバッジ追加**:
-  - `README.md` および `README.ja.md` のタイトル直下に、GitHub Actions の CI ビルドステータスバッジと MIT ライセンスバッジを追加。
+  - `README.md` および `README_JA.md` のタイトル直下に、GitHub Actions の CI ビルドステータスバッジと MIT ライセンスバッジを追加。
 - **開発ガイドラインの更新**:
   - `.agents/AGENTS.md` に、READMEの更新時にステータスバッジや多言語リンクの設置状況を維持・確認することを義務付けるルールを追加。
 
@@ -83,8 +83,8 @@
   - 特殊な記号（✕、📋）も文字化けを防ぐため、ASCII文字（X、Copy）に変更。
   - 画面レイアウトの見切れを防ぐため、ウィンドウの初期サイズを `300x195` から `320x220` に拡張。
   - 枠なしウィンドウのヘッダー領域に対して明示的に `Sense::drag` を割り当て、ウィンドウ移動ができない不具合を修正。
-- **README.mdとREADME.ja.mdの相互リンク**:
-  - `README.md` に日本語版（`README.ja.md`）へのリンク、`README.ja.md` に英語版（`README.md`）へのリンクを相互に追加。
+- **README.mdとREADME_JA.mdの相互リンク**:
+  - `README.md` に日本語版（`README_JA.md`）へのリンク、`README_JA.md` に英語版（`README.md`）へのリンクを相互に追加。
 - **VS Code 設定警告の解決**:
   - `.vscode/settings.json` における `editor.defaultFormatter` (`rust-lang.rust-analyzer`) の無効値警告を解決するため、該当設定項目を削除。推奨拡張機能ファイル `.vscode/extensions.json` を新規作成して補完。
 - **Clippy警告・エラーの修正**:
@@ -122,7 +122,7 @@
 - **Windows API依存関係のアップデート**:
   - `windows` クレートを `0.48.0` から `0.62.0` へアップデート。`windows::core::w` からインポート不可になった問題に対し、マクロ `windows::core::w!` を直接修飾して呼び出す形式に修正。
 - **開発テンプレートの最新化**:
-  - [docs/project_template_guide.md](docs/project_template_guide.md) に最新の `Cargo.toml` 依存ライブラリ構成テンプレート（eframe 0.35.0 / windows 0.62.0）を追記。
+  - [docs/PROJECT_TEMPLATE_GUIDE.md](docs/PROJECT_TEMPLATE_GUIDE.md) に最新の `Cargo.toml` 依存ライブラリ構成テンプレート（eframe 0.35.0 / windows 0.62.0）を追記。
 
 ## [0.2.2] - 2026-06-26
 
@@ -131,7 +131,7 @@
   - [.github/workflows/ci.yml](.github/workflows/ci.yml) において、`actions/checkout` を `v4` にアップグレードし、ビルドを高速化するために `Swatinem/rust-cache@v2` アクションを追加。
   - [.github/workflows/release.yml](.github/workflows/release.yml) において、`actions/checkout` を `v4`、`softprops/action-gh-release` を `v2` にアップグレード。
 - **プロジェクトテンプレートの汎用化**:
-  - [docs/project_template_guide.md](docs/project_template_guide.md) 内の各種 Actions のバージョンを最新版に更新し、CI にキャッシュアクションを追加。
+  - [docs/PROJECT_TEMPLATE_GUIDE.md](docs/PROJECT_TEMPLATE_GUIDE.md) 内の各種 Actions のバージョンを最新版に更新し、CI にキャッシュアクションを追加。
   - テンプレート内のバイナリ名等の表記をプレースホルダー `<YOUR_APP_NAME>` に変更し、他プロジェクトへ導入しやすいように汎用化。
 - **開発ガイドラインの調整**:
   - [.agents/AGENTS.md](.agents/AGENTS.md) の「自動化設定の維持ルール」に、最新のアクションバージョンやキャッシュ設定の維持についての文言を追加。
@@ -195,9 +195,9 @@
 - **MITライセンスの設定**:
   - MITライセンス本文を含む [LICENSE](LICENSE) ファイルを追加。
   - [Cargo.toml](Cargo.toml) に `license = "MIT"` を追加。
-  - [README.md](README.md) および [README.ja.md](README.ja.md) にライセンス表記を追記。
+  - [README.md](README.md) および [README_JA.md](README_JA.md) にライセンス表記を追記。
 - **ドキュメントの整備**:
-  - クイックスタート用の [README.md](README.md)（英語）および [README.ja.md](README.ja.md)（日本語）を作成。
+  - クイックスタート用の [README.md](README.md)（英語）および [README_JA.md](README_JA.md)（日本語）を作成。
   - システム仕様書 [docs/SPEC.md](docs/SPEC.md) の作成。
   - システム構成図 [docs/DIAGRAM.md](docs/DIAGRAM.md) の作成。
   - 性能およびバイナリサイズを記録する [docs/FOOTPRINTS.md](docs/FOOTPRINTS.md) の作成。

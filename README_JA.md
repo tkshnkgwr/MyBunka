@@ -98,10 +98,13 @@ $ bunka invalid
 
 詳細なドキュメントは以下を参照してください：
 - [システム仕様書 (docs/SPEC.md)](docs/SPEC.md) - アルゴリズムの詳細、引数仕様、およびGUI版の将来設計。
+- [システム設計書 (docs/ARCHITECTURE.md)](docs/ARCHITECTURE.md) - システムの全体設計、技術スタック、ディレクトリ構造、データフロー。
 - [構成図・フローチャート (docs/DIAGRAM.md)](docs/DIAGRAM.md) - 処理フローと構造図。
+- [開発指示書 (.agents/INSTRUCTIONS.md)](.agents/INSTRUCTIONS.md) - AIや開発者がコードを修正・追加する際のコーディングスタイル、命名規則、エラーハンドリング規約。
+- [開発タスク管理 (docs/TODO.md)](docs/TODO.md) - 実装済み機能、直近のタスク、バックログの管理。
 - [フットプリント記録 (docs/FOOTPRINTS.md)](docs/FOOTPRINTS.md) - バイナリサイズとメモリ使用量の実測データ。
 - [テスト検証報告書 (docs/TEST_REPORT.md)](docs/TEST_REPORT.md) - テストケースと実行結果。
-- [プロジェクト初期設定テンプレートガイド (docs/project_template_guide.md)](docs/project_template_guide.md) - エディタ、CI/CD、Dependabotの設定テンプレート。
+- [プロジェクト初期設定テンプレートガイド (docs/PROJECT_TEMPLATE_GUIDE.md)](docs/PROJECT_TEMPLATE_GUIDE.md) - エディタ、CI/CD、Dependabotの設定テンプレート。
 
 
 ## 開発 (Development)

@@ -6,7 +6,7 @@
 [![Rust](https://img.shields.io/badge/Rust-2024-orange?logo=rust)](https://www.rust-lang.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)](https://github.com/tkshnkgwr/bunka)
 
-[[日本語版はこちら]](README.ja.md)
+[[日本語版はこちら]](README_JA.md)
 
 ![BUNKA GUI Screenshot](docs/images/screenshot.png)
 
@@ -97,11 +97,14 @@ $ bunka invalid
 ## Documentation
 
 For more detailed documentation, please refer to:
-- [System Specification (SPEC.md)](docs/SPEC.md) - Algorithm details, arguments, and GUI plans.
-- [System Diagrams (DIAGRAM.md)](docs/DIAGRAM.md) - Flowcharts and architecture.
-- [Performance & Footprints (FOOTPRINTS.md)](docs/FOOTPRINTS.md) - Binary size and memory usage statistics.
-- [Test Report (TEST_REPORT.md)](docs/TEST_REPORT.md) - Test cases and verification steps.
-- [Project Setup Template Guide (project_template_guide.md)](docs/project_template_guide.md) - Standard configurations for editors, CI/CD, and Dependabot.
+- [System Specification (docs/SPEC.md)](docs/SPEC.md) - Algorithm details, arguments, and GUI plans.
+- [System Architecture (docs/ARCHITECTURE.md)](docs/ARCHITECTURE.md) - System design, technology stack, directory structure, and data flow.
+- [System Diagrams (docs/DIAGRAM.md)](docs/DIAGRAM.md) - Flowcharts and architecture.
+- [Development Instructions (.agents/INSTRUCTIONS.md)](.agents/INSTRUCTIONS.md) - Coding style, naming conventions, error handling policies, and AI guidelines.
+- [Task Management (docs/TODO.md)](docs/TODO.md) - Done tasks, current tasks, and backlog.
+- [Performance & Footprints (docs/FOOTPRINTS.md)](docs/FOOTPRINTS.md) - Binary size and memory usage statistics.
+- [Test Report (docs/TEST_REPORT.md)](docs/TEST_REPORT.md) - Test cases and verification steps.
+- [Project Setup Template Guide (docs/PROJECT_TEMPLATE_GUIDE.md)](docs/PROJECT_TEMPLATE_GUIDE.md) - Standard configurations for editors, CI/CD, and Dependabot.
 
 
 ## Development
