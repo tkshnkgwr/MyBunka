@@ -31,8 +31,8 @@
 - **windows (v0.62.2) & winapi (v0.3.9)** (GUIフィーチャー有効時):
   - Windows API へのアクセスを提供。
   - Windows 環境における多重起動を防止するための Named Mutex 制御に使用。
-- **common_lib** (ローカルクレート `path = "../common_lib"`):
-  - Windows デスクトップ向けの二重起動防止などのプラットフォーム共通ロジックを提供する社内共有/個別ローカルライブラリ。
+- **common_lib** (ローカルクレート `path = "../common_lib"`, GUIフィーチャー有効時のみ):
+  - `gui` Cargo feature 有効時のみオプショナルで依存。Windows デスクトップ向けの二重起動防止などのプラットフォーム共通ロジックを提供。
 
 ---
 

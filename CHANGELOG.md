@@ -5,7 +5,12 @@
 このファイルのフォーマットは [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) に基づいており、
 このプロジェクトは [セマンティック バージョニング](https://semver.org/spec/v2.0.0.html) に準拠しています。
 
-## [未リリース] - 2026-07-14
+## [未リリース] - 2026-07-21
+
+### 変更 (Changed)
+- **Cargo Features による共有ライブラリ依存の分離**:
+  - `Cargo.toml` において共有ライブラリ `common_lib` への依存をオプショナル（`optional = true`）化。
+  - `gui` Cargo Feature 有効化時のみ `common_lib` およびその `windows_desktop` フィーチャーを読み込むように分離。これにより、デフォルトの CLI ビルド時に一切のGUI/Windows依存ライブラリをコンパイルしない超軽量な構成を実現。
 
 ### 追加 (Added)
 - **RustDocドキュメントの拡充**:

@@ -33,22 +33,24 @@
 
 ### 1.4 プロジェクトインフラ
 - [x] `.editorconfig` および `.vscode/settings.json` によるエディタ設定の統一。
-- [x] GitHub Actions CI ワークフロー (`ci.yml`) による自動ビルド・テスト環境の構築。
+- [x] GitHub Actions CI ワークフロー (`ci.yml`) による自動ビルド・テスト環境の構築.
 - [x] GitHub Actions CD ワークフロー (`release.yml`) による自動タグ付けおよび zip アーカイブ（CLI/GUI同梱）の GitHub Releases への自動デプロイ。
 - [x] Dependabot による依存クレートの自動更新監視。
+
+### 1.5 ドキュメントの整備とファイル名の統一
+- [x] 全てのドキュメントファイル名の大文字スネークケース（`UPPER_SNAKE_CASE.md`）への統一（`README_JA.md` や `PROJECT_TEMPLATE_GUIDE.md` への移行を含む）。
+- [x] システム設計書 `docs/ARCHITECTURE.md` の作成。
+- [x] AI向け開発指示書 `.agents/INSTRUCTIONS.md` の作成および `.agents/` への配置。
+- [x] 開発タスク管理 `docs/TODO.md` の作成。
+- [x] `.agents/AGENTS.md` の見直しと、新設ドキュメントを反映させたリファクタリング。
+- [x] 全ドキュメント間の相対リンクの整合性検証、および絶対パス（`file:///`）混入の排除（ポータビリティ検証）。
 
 ---
 
 ## 2. 直近のタスク (In Progress / Todo)
 
-- [ ] **ドキュメントの整備とファイル名の統一** (In Progress)
-  - [x] `docs/project_template_guide.md` から `docs/PROJECT_TEMPLATE_GUIDE.md` へのリネーム（大文字スネークケース統一）。
-  - [x] システム設計書 `docs/ARCHITECTURE.md` の作成。
-  - [x] AI向け開発指示書 `.agents/INSTRUCTIONS.md` の作成（および `.agents/` への配置）。
-  - [x] 開発タスク管理 `docs/TODO.md` の作成。
-  - [ ] `.agents/AGENTS.md` の見直しと、新設ドキュメントを反映させたリファクタリング。
-- [ ] **ポータビリティの検証**
-  - ドキュメント間の相対リンクに切れがないか、また絶対パス `file:///` が混入していないかのチェック。
+- 現在、直近の保留タスクはありません。次の実装サイクルで [3. 将来的な拡張提案 (Backlog)](#3-将来的な拡張提案-backlog) からタスクを選択して着手します。
+
 
 ---
 
