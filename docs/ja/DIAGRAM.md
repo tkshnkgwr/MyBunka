@@ -1,3 +1,5 @@
+[English](../en/DIAGRAM.md) | **日本語版**
+
 # システム構成図 (DIAGRAM.md)
 
 このドキュメントでは、CLI版の処理フローおよび予定しているGUI版のアーキテクチャ構成図をダイアグラムを用いて視覚的に説明します。
@@ -111,4 +113,3 @@ graph TD
     
     RunApp --> AppUpdateLoop
 ```
-

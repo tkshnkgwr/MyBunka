@@ -1,3 +1,5 @@
+[English](../en/FOOTPRINTS.md) | **日本語版**
+
 # フットプリント記録 (FOOTPRINTS.md)
 
 このドキュメントでは、`bunka` のリリースビルドされた実行ファイルのファイルサイズや実行性能（フットプリント）に関する実測データを追跡・記録します。
@@ -25,7 +27,7 @@
 
 ## 2. リリース最適化設定
 
-上記の極小サイズおよび高速な動作は、[Cargo.toml](../Cargo.toml) の `[profile.release]` セクションに適用された以下の設定によるものです：
+上記の極小サイズおよび高速な動作は、[Cargo.toml](../../Cargo.toml) の `[profile.release]` セクションに適用された以下の設定によるものです：
 
 ```toml
 [profile.release]

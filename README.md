@@ -6,7 +6,7 @@
 [![Rust](https://img.shields.io/badge/Rust-2024-orange?logo=rust)](https://www.rust-lang.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)](https://github.com/tkshnkgwr/bunka)
 
-[[日本語版はこちら]](README_JA.md)
+**English** | [日本語版](README_JA.md)
 
 ![BUNKA GUI Screenshot](docs/images/screenshot.png)
 
@@ -94,18 +94,22 @@ $ bunka invalid
 エラー: 'invalid' は無効な数値またはパーセント表記です
 ```
 
-## Documentation
+## 📚 Documentation
 
-For more detailed documentation, please refer to:
-- [System Specification (docs/SPEC.md)](docs/SPEC.md) - Algorithm details, arguments, and GUI plans.
-- [System Architecture (docs/ARCHITECTURE.md)](docs/ARCHITECTURE.md) - System design, technology stack, directory structure, and data flow.
-- [System Diagrams (docs/DIAGRAM.md)](docs/DIAGRAM.md) - Flowcharts and architecture.
-- [Development Instructions (.agents/INSTRUCTIONS.md)](.agents/INSTRUCTIONS.md) - Coding style, naming conventions, error handling policies, and AI guidelines.
-- [Task Management (docs/TODO.md)](docs/TODO.md) - Done tasks, current tasks, and backlog.
-- [Performance & Footprints (docs/FOOTPRINTS.md)](docs/FOOTPRINTS.md) - Binary size and memory usage statistics.
-- [Test Report (docs/TEST_REPORT.md)](docs/TEST_REPORT.md) - Test cases and verification steps.
-- [Project Setup Template Guide (docs/PROJECT_TEMPLATE_GUIDE.md)](docs/PROJECT_TEMPLATE_GUIDE.md) - Standard configurations for editors, CI/CD, and Dependabot.
-
+For more detailed documentation, please refer to the files in `docs/en/`:
+- [Specification](docs/en/SPEC.md) - Algorithm details, CLI arguments, and GUI specs.
+- [System Architecture](docs/en/ARCHITECTURE.md) - System design, technology stack, directory structure, and data flow.
+- [System Diagrams](docs/en/DIAGRAM.md) - Flowcharts and architecture diagrams.
+- [Development Instructions](docs/en/INSTRUCTIONS.md) - Coding style, naming conventions, error handling policies, and AI guidelines.
+- [Task Management & Roadmap](docs/en/TODO.md) - Done tasks, current tasks, and backlog.
+- [Performance & Footprints](docs/en/FOOTPRINTS.md) - Binary size and memory usage statistics.
+- [Testing Policy & Guide](docs/en/TESTING.md) - Automated test policies and verification procedures.
+- [Test Report](docs/en/TEST_REPORT.md) - Test cases and verification results.
+- [Release Procedures](docs/en/RELEASE.md) - Versioning and release guidelines.
+- [Contribution Guidelines](docs/en/CONTRIBUTING.md) - PR rules and commit conventions.
+- [Security Policy](docs/en/SECURITY.md) - Vulnerability reporting and support policies.
+- [Project Setup Template Guide](docs/en/PROJECT_TEMPLATE_GUIDE.md) - Standard configurations for editors, CI/CD, and Dependabot.
+- [Changelog](docs/en/CHANGELOG.md) - Detailed release history.
 
 ## Development
 
@@ -117,4 +121,3 @@ This repository includes unified editor configurations and automated workflows:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-

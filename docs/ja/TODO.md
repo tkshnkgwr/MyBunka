@@ -1,3 +1,5 @@
+[English](../en/TODO.md) | **日本語版**
+
 # 開発タスク管理 (TODO.md)
 
 このドキュメントでは、`bunka` プロジェクトの現在の開発状況（Done）、直近のタスク（In Progress / Todo）、および将来的な拡張機能（Backlog）について管理します。
@@ -38,12 +40,9 @@
 - [x] Dependabot による依存クレートの自動更新監視。
 
 ### 1.5 ドキュメントの整備とファイル名の統一
-- [x] 全てのドキュメントファイル名の大文字スネークケース（`UPPER_SNAKE_CASE.md`）への統一（`README_JA.md` や `PROJECT_TEMPLATE_GUIDE.md` への移行を含む）。
-- [x] システム設計書 `docs/ARCHITECTURE.md` の作成。
-- [x] AI向け開発指示書 `.agents/INSTRUCTIONS.md` の作成および `.agents/` への配置。
-- [x] 開発タスク管理 `docs/TODO.md` の作成。
-- [x] `.agents/AGENTS.md` の見直しと、新設ドキュメントを反映させたリファクタリング。
-- [x] 全ドキュメント間の相対リンクの整合性検証、および絶対パス（`file:///`）混入の排除（ポータビリティ検証）。
+- [x] 全てのドキュメントファイル名の大文字スネークケース（`UPPER_SNAKE_CASE.md`）への統一。
+- [x] 多言語ドキュメントフォルダ構成（`docs/ja/` および `docs/en/`）の採用と相互切り替えリンクの整備。
+- [x] `.agents/AGENTS.md` の改訂。
 
 ---
 

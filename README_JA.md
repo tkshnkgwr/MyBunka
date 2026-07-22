@@ -6,7 +6,7 @@
 [![Rust](https://img.shields.io/badge/Rust-2024-orange?logo=rust)](https://www.rust-lang.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)](https://github.com/tkshnkgwr/bunka)
 
-[[English]](README.md)
+[English](README.md) | **日本語版**
 
 ![BUNKA GUI Screenshot](docs/images/screenshot.png)
 
@@ -91,20 +91,25 @@ $ bunka
 例) bunka 0.142857  ->  1/7
 
 $ bunka invalid
-エラー: 'invalid' は無効な浮動小数点数です
+エラー: 'invalid' は無効な数値またはパーセント表記です
 ```
 
-## ドキュメント一覧
+## 📚 ドキュメント一覧
 
-詳細なドキュメントは以下を参照してください：
-- [システム仕様書 (docs/SPEC.md)](docs/SPEC.md) - アルゴリズムの詳細、引数仕様、およびGUI版の将来設計。
-- [システム設計書 (docs/ARCHITECTURE.md)](docs/ARCHITECTURE.md) - システムの全体設計、技術スタック、ディレクトリ構造、データフロー。
-- [構成図・フローチャート (docs/DIAGRAM.md)](docs/DIAGRAM.md) - 処理フローと構造図。
-- [開発指示書 (.agents/INSTRUCTIONS.md)](.agents/INSTRUCTIONS.md) - AIや開発者がコードを修正・追加する際のコーディングスタイル、命名規則、エラーハンドリング規約。
-- [開発タスク管理 (docs/TODO.md)](docs/TODO.md) - 実装済み機能、直近のタスク、バックログの管理。
-- [フットプリント記録 (docs/FOOTPRINTS.md)](docs/FOOTPRINTS.md) - バイナリサイズとメモリ使用量の実測データ。
-- [テスト検証報告書 (docs/TEST_REPORT.md)](docs/TEST_REPORT.md) - テストケースと実行結果。
-- [プロジェクト初期設定テンプレートガイド (docs/PROJECT_TEMPLATE_GUIDE.md)](docs/PROJECT_TEMPLATE_GUIDE.md) - エディタ、CI/CD、Dependabotの設定テンプレート。
+詳細なドキュメントは `docs/ja/` 配下の各ファイルを参照してください：
+- [システム仕様書 (docs/ja/SPEC.md)](docs/ja/SPEC.md) - アルゴリズムの詳細、引数仕様、およびGUI版の仕様。
+- [システム設計書 (docs/ja/ARCHITECTURE.md)](docs/ja/ARCHITECTURE.md) - システムの全体設計、技術スタック、ディレクトリ構造、データフロー。
+- [構成図・フローチャート (docs/ja/DIAGRAM.md)](docs/ja/DIAGRAM.md) - 処理フローと構造図。
+- [開発指示書 (docs/ja/INSTRUCTIONS.md)](docs/ja/INSTRUCTIONS.md) - AIや開発者がコードを修正・追加する際のコーディングスタイル、命名規則、エラーハンドリング規約。
+- [開発タスク管理 (docs/ja/TODO.md)](docs/ja/TODO.md) - 実装済み機能、直近のタスク、バックログの管理。
+- [フットプリント記録 (docs/ja/FOOTPRINTS.md)](docs/ja/FOOTPRINTS.md) - バイナリサイズとメモリ使用量の実測データ。
+- [テスト方針・ガイド (docs/ja/TESTING.md)](docs/ja/TESTING.md) - 自動テスト方針とテスト検証手順。
+- [テスト検証報告書 (docs/ja/TEST_REPORT.md)](docs/ja/TEST_REPORT.md) - テストケースと実行結果。
+- [リリース手順書 (docs/ja/RELEASE.md)](docs/ja/RELEASE.md) - バージョン更新およびリリース作業の手順。
+- [貢献ガイドライン (docs/ja/CONTRIBUTING.md)](docs/ja/CONTRIBUTING.md) - PRルールやコミット規約。
+- [セキュリティポリシー (docs/ja/SECURITY.md)](docs/ja/SECURITY.md) - 脆弱性報告手順とサポートバージョン方針。
+- [プロジェクト初期設定テンプレートガイド (docs/ja/PROJECT_TEMPLATE_GUIDE.md)](docs/ja/PROJECT_TEMPLATE_GUIDE.md) - エディタ、CI/CD、Dependabotの設定テンプレート。
+- [変更履歴 (docs/ja/CHANGELOG.md)](docs/ja/CHANGELOG.md) - プロジェクトの変更履歴。
 
 
 ## 開発 (Development)
@@ -117,4 +122,3 @@ $ bunka invalid
 ## ライセンス
 
 本プロジェクトは [MIT ライセンス](LICENSE) の下でオープンソースとして公開されています。詳細については [LICENSE](LICENSE) ファイルを参照してください。
-

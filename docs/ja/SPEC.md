@@ -1,3 +1,5 @@
+[English](../en/SPEC.md) | **日本語版**
+
 # システム仕様書 (SPEC.md)
 
 このドキュメントでは、`bunka` のソフトウェア要件、インターフェース定義、アルゴリズムの詳細、およびGUI設計仕様について説明します。
@@ -67,7 +69,7 @@ $ bunka 0.142857 -d 1000 -t 1e-4
 
 ## 2. GUI システム仕様
 
-GUI版は、Cargo features に `gui` を指定してビルドすることで、最前面常駐のデスクトップGUI版として起動させることができます。ソースコードは [src/gui.rs](../src/gui.rs) に分離されています。
+GUI版は、Cargo features に `gui` を指定してビルドすることで、最前面常駐のデスクトップGUI版として起動させることができます。ソースコードは [src/gui.rs](../../src/gui.rs) に分離されています。
 
 - **ビルドコマンド**:
   ```bash
@@ -83,7 +85,7 @@ GUI版は、Cargo features に `gui` を指定してビルドすることで、�
   - **結果表示エリア**: 変換された分数を大きな文字で中央に強調表示し、その右横にワンクリックでクリップボードへ結果をコピーできる「Copy」ボタンを配置します。
 
 ### 2.2 ネイティブウィンドウフレームワークの制約 (eframe/egui/windows)
-[.agents/AGENTS.md](../.agents/AGENTS.md) に定義されたガイドラインに基づき、デスクトップ版のウィンドウは以下の制約を実装しています。
+[.agents/AGENTS.md](../../.agents/AGENTS.md) に定義されたガイドラインに基づき、デスクトップ版のウィンドウは以下の制約を実装しています。
 - **ウィンドウ枠および影の非表示**:
   - `NativeOptions` で `decorated: false` および `transparent: true` を指定して、OS標準の枠を無効化しています。
   - 透過ウィンドウに映えるよう、UI自体を角丸（半径12px）で半透明のカスタムダークテーマフレームで描画しています。
@@ -102,20 +104,19 @@ GUI版は、Cargo features に `gui` を指定してビルドすることで、�
 
 ### 3.1 開発用エディタ設定
 プロジェクト全体のコード品質および書式を一貫させるため、以下の設定ファイルを適用しています。
-- **[.editorconfig](../.editorconfig)**: 改行コードを `LF`、文字コードを `UTF-8 (BOMなし)`、インデント幅を `4`（Markdown/YAML等は `2`）に統一します。
-- **[.vscode/settings.json](../.vscode/settings.json)**: VS Code 利用者向けに、保存時の自動整形（rustfmt）の有効化、インデントおよび文字コード設定を共有します。
+- **[.editorconfig](../../.editorconfig)**: 改行コードを `LF`、文字コードを `UTF-8 (BOMなし)`、インデント幅を `4`（Markdown/YAML等は `2`）に統一します。
+- **[.vscode/settings.json](../../.vscode/settings.json)**: VS Code 利用者向けに、保存時の自動整形（rustfmt）の有効化、インデントおよび文字コード設定を共有します。
 
 ### 3.2 CI/CD および自動リリース仕様
 - **継続的インテグレーション (CI)**:
-  - プッシュおよびプルリクエスト発生時に Windows 環境で自動ビルドと `cargo test` を実行し、コードの健全性を保ちます（[.github/workflows/ci.yml](../.github/workflows/ci.yml)）。
+  - プッシュおよびプルリクエスト発生時に Windows 環境で自動ビルドと `cargo test` を実行し、コードの健全性を保ちます（[.github/workflows/ci.yml](../../.github/workflows/ci.yml)）。
   - 近似アルゴリズムが依存している共有ライブラリ `common_lib` についても、`bunka` と同じ階層に並列で自動チェックアウトするステップ（`secrets.PAT` 未設定時は自動的に `github.token` にフォールバック）を組み込んでいます。
 - **継続的デプロイ (CD) および自動リリース判定**:
-  - `main` ブランチへのプッシュ（またはプルリクエストのマージ）時に、ワークフローが自動でトリガーされます（[.github/workflows/release.yml](../.github/workflows/release.yml)）。
+  - `main` ブランチへのプッシュ（またはプルリクエストのマージ）時に、ワークフローが自動でトリガーされます（[.github/workflows/release.yml](../../.github/workflows/release.yml)）。
   - `Cargo.toml` の `version` を自動的に読み込み、リモートリポジトリ上の既存の Git タグ（例: `refs/tags/v0.4.5`）と照合します。
   - まだリリースされていない新バージョンの場合に限り、自動で Git タグを生成・プッシュし、GitHub Release の作成を行います。
   - Windows 向けに CLI 版および GUI 版バイナリを双方リリースビルドし、1つの zip アーカイブ（`bunka-windows-x64.zip`）にまとめて GitHub Releases に自動デプロイします。このパッケージング処理は `target/release` ディレクトリ内で完結するように構成されています。
 
 ### 3.3 依存関係の自動更新
-- **[dependabot.yml](../.github/dependabot.yml)**:
+- **[dependabot.yml](../../.github/dependabot.yml)**:
   - GitHub Actions の Action バージョンおよび Cargo の依存ライブラリを週次で監視し、更新プログラムがある場合は自動的にプルリクエストを作成します。
-
