@@ -8,16 +8,13 @@
 
 **English** | [日本語版](README_JA.md)
 
-![BUNKA GUI Screenshot](docs/images/screenshot.png)
-
-`bunka` is a lightweight Rust command-line and GUI utility that approximates any decimal or percentage input (e.g. `10%`) into its fractional representation (numerator/denominator) using the **Continued Fraction Expansion** algorithm.
+`bunka` is a lightweight Rust command-line utility that approximates any decimal or percentage input (e.g. `10%`) into its fractional representation (numerator/denominator) using the **Continued Fraction Expansion** algorithm.
 
 ## Features
 
 - **High Precision**: Custom tolerance and maximum denominator limits allow for accurate fractional approximations.
-- **Ultra-lightweight**: Highly optimized release binary size (~138.5 KB) with zero external dependencies for the CLI version.
+- **Ultra-lightweight**: Highly optimized release binary size (~138.5 KB) with zero external dependencies.
 - **Mathematical Integrity**: Utilizes the continued fraction algorithm to find the best rational approximation.
-- **Feature-gated GUI**: Supports an ultra-minimalistic, frameless, transparent GUI overlay using `eframe`/`egui` (enabled via the `gui` feature).
 
 ## Getting Started
 
@@ -27,7 +24,6 @@
 
 ### Installation & Build
 
-#### CLI Version (Default)
 Clone this repository and build the release binary:
 
 ```bash
@@ -35,13 +31,6 @@ cargo build --release
 ```
 
 The optimized binary will be generated at `target/release/bunka.exe` (or `target/release/bunka` on Linux/macOS).
-
-#### GUI Version
-To build and run the GUI version:
-
-```bash
-cargo run --release --features gui
-```
 
 ## Usage
 
@@ -97,7 +86,7 @@ $ bunka invalid
 ## 📚 Documentation
 
 For more detailed documentation, please refer to the files in `docs/en/`:
-- [Specification](docs/en/SPEC.md) - Algorithm details, CLI arguments, and GUI specs.
+- [Specification](docs/en/SPEC.md) - Algorithm details and CLI argument specification.
 - [System Architecture](docs/en/ARCHITECTURE.md) - System design, technology stack, directory structure, and data flow.
 - [System Diagrams](docs/en/DIAGRAM.md) - Flowcharts and architecture diagrams.
 - [Development Instructions](docs/en/INSTRUCTIONS.md) - Coding style, naming conventions, error handling policies, and AI guidelines.
@@ -115,7 +104,7 @@ For more detailed documentation, please refer to the files in `docs/en/`:
 
 This repository includes unified editor configurations and automated workflows:
 - **Editor Configurations**: [.editorconfig](.editorconfig) and [.vscode/settings.json](.vscode/settings.json) are provided to ensure consistent code styling.
-- **CI/CD**: Automatic testing is run on PRs/pushes via [.github/workflows/ci.yml](.github/workflows/ci.yml). Automatic release binaries (both CLI and GUI versions in a zip file) are created and uploaded to GitHub Releases when pushing a tag (`v*`) via [.github/workflows/release.yml](.github/workflows/release.yml).
+- **CI/CD**: Automatic testing is run on PRs/pushes via [.github/workflows/ci.yml](.github/workflows/ci.yml). Automatic release binaries (CLI version in a zip file) are created and uploaded to GitHub Releases when pushing a tag (`v*`) via [.github/workflows/release.yml](.github/workflows/release.yml).
 - **Dependabot**: Automatically checks for dependency updates weekly ([.github/dependabot.yml](.github/dependabot.yml)).
 
 ## License

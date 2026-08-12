@@ -2,7 +2,7 @@
 
 # システム構成図 (DIAGRAM.md)
 
-このドキュメントでは、CLI版の処理フローおよび予定しているGUI版のアーキテクチャ構成図をダイアグラムを用いて視覚的に説明します。
+このドキュメントでは、`bunka` の CLI 実行における処理フローをダイアグラムを用いて視覚的に説明します。
 
 ---
 
@@ -69,47 +69,4 @@ graph TD
     
     OutputResult --> PrintResult[stdout に '分子/分母' 形式で出力]
     PrintResult --> ExitSuccess
-```
-
----
-
-## 2. GUI 実行処理フロー（アーキテクチャ構成）
-
-GUI版は、`egui`/`eframe` が制御するインタラクティブな状態更新ループで動作します。
-
-```mermaid
-graph TD
-    StartGUI([アプリケーション起動]) --> MutexCheck{"common_lib を用いた<br>Named Mutex の確認"}
-    
-    MutexCheck -- すでに起動中 --> Terminate[即座にプロセスを正常終了]
-    MutexCheck -- 未起動 --> InitOptions[NativeOptions の初期化]
-    
-    InitOptions --> SetWindowProps["transparent: true (背景透過)<br>decorated: false (枠なし)<br>always_on_top: true (最前面)<br>inner_size: 320x220 (固定サイズ)"]
-    SetWindowProps --> RunApp[eframe アプリループ起動]
-    
-    subgraph AppUpdateLoop [eframe::App::ui]
-        RenderUI["カスタム半透明角丸フレームの描画"] --> RenderHeader["ヘッダー（タイトル・Xボタン）の描画"]
-        
-        RenderHeader --> DragGrip{ヘッダーがドラッグされた?}
-        DragGrip -- はい --> StartDrag["ViewportCommand::StartDrag を送信<br>(ウィンドウ移動開始)"]
-        
-        DragGrip -- いいえ --> CloseCheck{Xボタンがクリックされた?}
-        CloseCheck -- はい --> CloseApp["ViewportCommand::Close を送信<br>(アプリ終了)"]
-        
-        CloseCheck -- いいえ --> RenderInputs["入力エリア（小数値入力・スライダー）の描画"]
-        
-        RenderInputs --> InputChange{入力値が変更された?}
-        InputChange -- はい --> Recalculate["連分数展開による再計算 (recalculate)"]
-        InputChange -- いいえ --> RenderResult["結果表示エリア（変換結果・Copyボタン）の描画"]
-        
-        Recalculate --> RenderResult
-        
-        RenderResult --> CopyCheck{Copyボタンがクリックされた?}
-        CopyCheck -- はい --> CopyClip["ctx.copy_text() を実行<br>(クリップボードに分数コピー)"]
-        CopyCheck -- いいえ --> Idle[次のフレーム/描画要求まで待機]
-        
-        CopyClip --> Idle
-    end
-    
-    RunApp --> AppUpdateLoop
 ```

@@ -12,9 +12,7 @@ This document describes the system architecture, structural design intents, tech
 
 ### Core Objectives
 - **High-Precision Rational Approximation**: Rapid and precise conversion from decimal numbers to intuitive fractional expressions.
-- **Multi-Interface Support**: 
-  - A lightweight **CLI Tool** suitable for scripting and automated pipelines.
-  - An interactive **Desktop GUI App** that stays always-on-top with semi-transparent aesthetics.
+- **Lightweight CLI Interface**: A zero-dependency, ultra-compact **CLI Tool** suitable for scripting and automated pipelines.
 - **High Efficiency & Resource Optimization**: Fast continued fraction expansion algorithm minimizing heap allocations and memory footprint.
 
 ---
@@ -23,15 +21,6 @@ This document describes the system architecture, structural design intents, tech
 
 ### 2.1 Language
 - **Rust (Edition 2024)**: Offers memory safety, zero-cost abstractions, and high execution speed.
-
-### 2.2 Frameworks & Libraries
-- **eframe / egui (v0.35.0)** (when `gui` feature is enabled):
-  - Immediate-mode GUI library for Rust.
-  - Enables frameless (`decorated: false`), transparent (`transparent: true`), and always-on-top window controls.
-- **windows (v0.62.2) & winapi (v0.3.9)** (when `gui` feature is enabled):
-  - Provides Win32 API access for Windows-specific single instance prevention via Named Mutex.
-- **common_lib** (local crate at `path = "../common_lib"`, optional with `gui` feature):
-  - Shared desktop utility library providing single instance mutex controls.
 
 ---
 
@@ -59,10 +48,9 @@ bunka/
 │   │   └── ...
 │   └── images/                 # Visual assets
 ├── src/
-│   ├── main.rs                 # Feature-based entry point
+│   ├── main.rs                 # CLI entry point
 │   ├── lib.rs                  # Core rational algorithm & parsing
-│   ├── cli.rs                  # CLI argument parsing & I/O
-│   └── gui.rs                  # egui rendering & window controls
+│   └── cli.rs                  # CLI argument parsing & I/O
 ├── Cargo.toml                  # Dependencies & release profiles
 ├── README.md                   # English overview guide
 ├── README_JA.md                # Japanese overview guide
@@ -79,11 +67,3 @@ bunka/
 3. Passes input string to `lib::parse_decimal_or_percent()` to parse percentages or decimals into an `f64`.
 4. Executes `lib::approximate_fraction()` with configured parameters (`-d`, `-t`).
 5. Prints the result (`numerator/denominator`) to `stdout` and exits.
-
-### 4.2 GUI Data Flow
-1. `main.rs` invokes `gui::run_gui()`.
-2. Checks Named Mutex via `common_lib::desktop::acquire_single_instance()`. Exits if an instance is already running.
-3. Initializes `BunkaGuiApp` via `eframe::run_native()`.
-4. Updates input and triggers `recalculate()` on user input changes.
-5. Updates numerator and denominator in component state upon successful calculation.
-6. Renders state in `eframe::App::ui()` and supports one-click copying to clipboard.

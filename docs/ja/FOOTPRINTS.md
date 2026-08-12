@@ -12,8 +12,7 @@
 
 ### 1.1 バイナリサイズ
 - **CLI版ファイルサイズ**: `138,752 バイト` (約 135.5 KB)
-- **GUI版ファイルサイズ**: `8,218,624 バイト` (約 7.84 MB) ※wgpu / egui / eframe などの描画ライブラリや ICU データをすべて静的リンクして最適化したサイズ
-- **評価**: CLI版は分数近似アルゴリズムのみを実装しているため極限まで極小化されています。GUI版についても、LTO や strip 適用などの厳格なリリース最適化により、フルスタックな描画基盤を含みながらコンパクトに抑えられています。
+- **評価**: 分数近似アルゴリズムと引数パースのみを実装しているため極限まで極小化されています。外部依存ライブラリもゼロに抑えられています。
 
 ### 1.2 メモリ使用量 (RAM)
 - **ピーク時の物理メモリ使用量 (Working Set)**: 実行中はおおよそ `1.2 MB 〜 2.0 MB` と推定。
@@ -45,16 +44,10 @@ strip = true          # シンボル情報とデバッグ情報を実行ファ�
 自身の環境でこれらのフットプリントを測定または再現するには、**PowerShell 7 (pwsh)** を起動し、以下のコマンドを実行してください。
 
 ### ファイルサイズの測定
-- **CLI版の測定**:
-  ```powershell
-  cargo build --release
-  (Get-Item target/release/bunka.exe).Length
-  ```
-- **GUI版の測定**:
-  ```powershell
-  cargo build --release --features gui
-  (Get-Item target/release/bunka.exe).Length
-  ```
+```powershell
+cargo build --release
+(Get-Item target/release/bunka.exe).Length
+```
 
 ### 実行時間の測定
 ```powershell

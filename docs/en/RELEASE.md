@@ -27,4 +27,4 @@ GitHub Actions workflow (`.github/workflows/release.yml`) monitors `Cargo.toml` 
    ```
 
 4. **Automated GitHub Release**:
-   Actions will automatically detect the new tag `v0.4.7`, build production binaries (CLI & GUI), and publish the GitHub release asset (`bunka-windows-x64.zip`).
+   Actions will automatically detect the new tag `v0.4.7`, build production binary (CLI), and publish the GitHub release asset (`bunka-windows-x64.zip`).

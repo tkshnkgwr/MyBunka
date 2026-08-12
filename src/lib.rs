@@ -1,18 +1,14 @@
 //! # Bunka (分化)
-//! 
+//!
 //! `bunka` は浮動小数点数値またはパーセント表記の文字列を受け取り、
 //! 連分数展開アルゴリズムを用いて高精度な分数（分子 / 分母）に近似変換するためのライブラリおよびツールです。
-//! 
+//!
 //! ## 特徴
 //! - **連分数近似**: 最大分母の制限や許容誤差のパラメータを調整した分数近似。
 //! - **柔軟な入力形式**: `0.142857` のような通常の小数のほか、`10%` のようなパーセント表示の文字列もパース可能。
-//! - **CLI / GUI のサポート**: CLIツールとしての実行のほか、`gui` フィーチャーを有効化することで eframe/egui によるGUIアプリが利用可能です。
+//! - **直感的なインターフェース**: 数値やパーセント表示を入力して即座に結果を出力するCLIツールを内包。
 
-#[cfg(not(feature = "gui"))]
 pub mod cli;
-
-#[cfg(feature = "gui")]
-pub mod gui;
 
 /// 連分数展開アルゴリズムによる分数近似
 ///
@@ -119,8 +115,8 @@ pub fn approximate_fraction(value: f64, max_denominator: u64, tolerance: f64) ->
 /// ```
 pub fn parse_decimal_or_percent(s: &str) -> Result<f64, std::num::ParseFloatError> {
     let trimmed = s.trim();
-    if trimmed.ends_with('%') {
-        let val_part = trimmed[..trimmed.len() - 1].trim();
+    if let Some(stripped) = trimmed.strip_suffix('%') {
+        let val_part = stripped.trim();
         let val: f64 = val_part.parse()?;
         Ok(val / 100.0)
     } else {

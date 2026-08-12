@@ -2,7 +2,7 @@
 
 # System Diagrams (DIAGRAM.md)
 
-This document visually explains the execution flow of the CLI version and the architecture of the GUI desktop app using diagrams.
+This document visually explains the execution flow of the CLI version of `bunka` using diagrams.
 
 ---
 
@@ -67,45 +67,4 @@ graph TD
     
     OutputResult --> PrintResult[Print 'numerator/denominator' to stdout]
     PrintResult --> ExitSuccess
-```
-
----
-
-## 2. GUI Execution Architecture
-
-```mermaid
-graph TD
-    StartGUI([Launch Application]) --> MutexCheck{"Check Named Mutex<br>via common_lib"}
-    
-    MutexCheck -- Already Running --> Terminate[Exit process immediately]
-    MutexCheck -- First Instance --> InitOptions[Initialize NativeOptions]
-    
-    InitOptions --> SetWindowProps["transparent: true<br>decorated: false<br>always_on_top: true<br>inner_size: 320x220"]
-    SetWindowProps --> RunApp[Launch eframe app loop]
-    
-    subgraph AppUpdateLoop [eframe::App::ui]
-        RenderUI["Render rounded dark theme frame"] --> RenderHeader["Render header title & close X button"]
-        
-        RenderHeader --> DragGrip{Header dragged?}
-        DragGrip -- Yes --> StartDrag["Send ViewportCommand::StartDrag"]
-        
-        DragGrip -- No --> CloseCheck{X button clicked?}
-        CloseCheck -- Yes --> CloseApp["Send ViewportCommand::Close"]
-        
-        CloseCheck -- No --> RenderInputs["Render input field & sliders"]
-        
-        RenderInputs --> InputChange{Input modified?}
-        InputChange -- Yes --> Recalculate["recalculate() via continued fractions"]
-        InputChange -- No --> RenderResult["Render result area & Copy button"]
-        
-        Recalculate --> RenderResult
-        
-        RenderResult --> CopyCheck{Copy button clicked?}
-        CopyCheck -- Yes --> CopyClip["Execute ctx.copy_text()"]
-        CopyCheck -- No --> Idle[Wait for next frame/repaint]
-        
-        CopyClip --> Idle
-    end
-    
-    RunApp --> AppUpdateLoop
 ```

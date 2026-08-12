@@ -29,7 +29,7 @@
 
 4. **自動化ワークフローの実行**:
    - GitHub Actions が自動でトリガーされ、`v0.4.7` タグの有無をチェックします。
-   - タグが存在しない場合、CLI版およびGUI版バイナリがビルド・パッケージングされ、GitHub Release が自動生成されます。
+   - タグが存在しない場合、CLI版バイナリがビルド・パッケージングされ、GitHub Release が自動生成されます。
 
 ---
 
@@ -38,10 +38,7 @@
 ローカル環境でリリース用バイナリを直接ビルドする場合は、PowerShell 7 (pwsh) で以下を実行します：
 
 ```powershell
-# 1. CLI版のリリースビルド
+# CLI版のリリースビルド
 cargo build --release
-
-# 2. GUI版のリリースビルド
-cargo build --release --features gui
 ```
 生成されたバイナリは `target/release/bunka.exe` です。

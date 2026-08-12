@@ -182,39 +182,19 @@ jobs:
         if: env.SKIP_RELEASE != 'true'
         uses: dtolnay/rust-toolchain@stable
 
-      # 1. CLI版のビルド
+      # CLI版のビルド
       - name: Build CLI release
         if: env.SKIP_RELEASE != 'true'
         run: cargo build --release --verbose
 
-      # 2. CLI版バイナリの退避
-      - name: Package CLI binary
-        if: env.SKIP_RELEASE != 'true'
-        shell: pwsh
-        run: |
-          Copy-Item -Path target/release/<YOUR_APP_NAME>.exe -Destination target/release/<YOUR_APP_NAME>-cli-temp.exe -Force
-
-      # 3. GUI版のビルド (gui feature がある場合)
-      - name: Build GUI release
-        if: env.SKIP_RELEASE != 'true'
-        run: cargo build --release --features gui --verbose
-
-      # 4. GUI版バイナリの退避とリネーム、および CLI 版の復元
-      - name: Package GUI binary
-        if: env.SKIP_RELEASE != 'true'
-        shell: pwsh
-        run: |
-          Copy-Item -Path target/release/<YOUR_APP_NAME>.exe -Destination target/release/<YOUR_APP_NAME>-gui.exe -Force
-          Move-Item -Path target/release/<YOUR_APP_NAME>-cli-temp.exe -Destination target/release/<YOUR_APP_NAME>.exe -Force
-
-      # 5. 両方のバイナリを含む zip アーカイブの作成
+      # バイナリを含む zip アーカイブの作成
       - name: Archive production binaries
         if: env.SKIP_RELEASE != 'true'
         shell: pwsh
         run: |
-          Compress-Archive -Path target/release/<YOUR_APP_NAME>.exe, target/release/<YOUR_APP_NAME>-gui.exe -DestinationPath target/release/<YOUR_APP_NAME>-windows-x64.zip -Force
+          Compress-Archive -Path target/release/<YOUR_APP_NAME>.exe -DestinationPath target/release/<YOUR_APP_NAME>-windows-x64.zip -Force
 
-      # 6. GitHub Release の作成とアップロード
+      # GitHub Release の作成とアップロード
       - name: Create GitHub Release and Upload Asset
         if: env.SKIP_RELEASE != 'true'
         uses: softprops/action-gh-release@v2
@@ -266,36 +246,4 @@ lto = true            # リンク時最適化（デッドコードの削減を�
 codegen-units = 1     # コード生成単位を1に統合（LLVMによるインライン化を最大化）
 panic = 'abort'       # パニック時に即時終了（スタック展開用のメタデータと展開ロジックを排除）
 strip = true          # シンボル情報とデバッグ情報を実行ファイルから完全に削除
-```
-
----
-
-## 5. 依存ライブラリの標準設定例 (`Cargo.toml`)
-
-CLI / GUI 共通での起動制御（二重起動防止）や、最前面・透過・枠なしウィンドウ（eframe/egui）を利用する際の、標準的なクレート構成例です。
-
-**設定パス**: `Cargo.toml` の `[dependencies]` / `[features]`
-
-```toml
-[dependencies]
-# eframe (egui フレームワーク本体): GUI表示に使用
-eframe = { version = "0.35.0", optional = true }
-
-# windows (Windows APIの呼び出し): 名前付きMutexによる二重起動制御に使用
-windows = {
-    version = "0.62.0",
-    features = [
-        "Win32_System_Threading",
-        "Win32_Foundation",
-        "Win32_Security"
-    ],
-    optional = true
-}
-
-# winapi (他のWin32制御に使用、必要に応じて)
-winapi = { version = "0.3.9", features = ["winuser", "windef"], optional = true }
-
-[features]
-default = []
-gui = ["dep:eframe", "dep:windows", "dep:winapi"]
 ```

@@ -8,16 +8,13 @@
 
 [English](README.md) | **日本語版**
 
-![BUNKA GUI Screenshot](docs/images/screenshot.png)
-
-`bunka` は、与えられた小数点数やパーセント表記（例：`10%`）を**連分数展開（Continued Fraction Expansion）アルゴリズム**を用いて、近似的な分数（分子/分母）に変換する軽量な Rust 製コマンドライン / GUI ツールです。
+`bunka` は、与えられた小数点数やパーセント表記（例：`10%`）を**連分数展開（Continued Fraction Expansion）アルゴリズム**を用いて、近似的な分数（分子/分母）に変換する軽量な Rust 製コマンドラインツールです。
 
 ## 特徴
 
 - **高い近似精度**: 最大分母制限および許容誤差を設定することで、実数値を高精度に分数へと近似します。
-- **極小のフットプリント**: CLI版は外部依存ライブラリを一切持たず、リリースビルド時のバイナリサイズは約138.5 KBと非常に軽量です。
+- **極小のフットプリント**: 外部依存ライブラリを一切持たず、リリースビルド時のバイナリサイズは約138.5 KBと非常に軽量です。
 - **数理的なアプローチ**: 連分数展開の性質を利用し、規定の分母範囲内で最も誤差が小さくなる最適な有理数を探索します。
-- **GUI版のサポート**: `eframe`/`egui` を使用した「枠なし・透過・最前面表示・ドラッグ移動可能」な極小オーバーレイGUIアプリを `gui` フィーチャー指定で起動・ビルド可能です。
 
 ## クイックスタート
 
@@ -27,7 +24,6 @@
 
 ### ビルド手順
 
-#### CLI版 (デフォルト)
 リポジトリをクローンし、リリースビルドを実行します：
 
 ```bash
@@ -35,13 +31,6 @@ cargo build --release
 ```
 
 最適化されたバイナリが `target/release/bunka.exe` (Linux/macOS の場合は `target/release/bunka`) に生成されます。
-
-#### GUI版
-GUI版をビルドして起動するには、以下のコマンドを実行します：
-
-```bash
-cargo run --release --features gui
-```
 
 ## 使い方
 
@@ -97,7 +86,7 @@ $ bunka invalid
 ## 📚 ドキュメント一覧
 
 詳細なドキュメントは `docs/ja/` 配下の各ファイルを参照してください：
-- [システム仕様書 (docs/ja/SPEC.md)](docs/ja/SPEC.md) - アルゴリズムの詳細、引数仕様、およびGUI版の仕様。
+- [システム仕様書 (docs/ja/SPEC.md)](docs/ja/SPEC.md) - アルゴリズムの詳細および引数仕様。
 - [システム設計書 (docs/ja/ARCHITECTURE.md)](docs/ja/ARCHITECTURE.md) - システムの全体設計、技術スタック、ディレクトリ構造、データフロー。
 - [構成図・フローチャート (docs/ja/DIAGRAM.md)](docs/ja/DIAGRAM.md) - 処理フローと構造図。
 - [開発指示書 (docs/ja/INSTRUCTIONS.md)](docs/ja/INSTRUCTIONS.md) - AIや開発者がコードを修正・追加する際のコーディングスタイル、命名規則、エラーハンドリング規約。
@@ -116,7 +105,7 @@ $ bunka invalid
 
 本リポジトリには、エディタ設定の統一や自動化ワークフローが組み込まれています：
 - **エディタ設定の統一**: コードの書式を一貫させるため、[.editorconfig](.editorconfig) および VS Code 用設定 [.vscode/settings.json](.vscode/settings.json) を提供しています。
-- **CI/CD**: プルリクエストやメインブランチへのプッシュ時に [.github/workflows/ci.yml](.github/workflows/ci.yml) による自動テストを実行します。また、リリースタグ（`v*`）のプッシュ時には、Windows 向け CLI 版および GUI 版バイナリをビルドし、zip アーカイブにまとめて GitHub Releases に自動デプロイする [.github/workflows/release.yml](.github/workflows/release.yml) を設定しています。
+- **CI/CD**: プルリクエストやメインブランチへのプッシュ時に [.github/workflows/ci.yml](.github/workflows/ci.yml) による自動テストを実行します。また、リリースタグ（`v*`）のプッシュ時には、Windows 向け CLI バイナリをビルドし、zip アーカイブにまとめて GitHub Releases に自動デプロイする [.github/workflows/release.yml](.github/workflows/release.yml) を設定しています。
 - **自動アップデート (Dependabot)**: 依存ライブラリや GitHub Actions の更新を週次でチェックし、PR を自動作成する [.github/dependabot.yml](.github/dependabot.yml) を設定しています。
 
 ## ライセンス

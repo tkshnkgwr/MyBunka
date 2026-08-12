@@ -6,6 +6,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2026-08-12
+
+### Removed
+- **Complete Removal of `egui` / GUI Feature**:
+  - Deleted `src/gui.rs` and removed `eframe`, `windows`, `winapi`, `common_lib` dependencies and `gui` Cargo feature flag.
+  - Streamlined `bunka` into a zero-dependency, ultra-lightweight CLI application.
+  - Removed GUI build steps from GitHub Actions workflows (`release.yml`, `ci.yml`).
+
+### Changed
+- **CLI Argument Parsing & Test Expansion**:
+  - Refactored `src/cli.rs` with `parse_cli_args` helper and comprehensive unit tests.
+
 ## [Unreleased] - 2026-07-21
 
 ### Changed

@@ -12,8 +12,7 @@ Metrics measured on Windows 11 x64 using Rust 1.96.0 (`x86_64-pc-windows-msvc` t
 
 ### 1.1 Binary File Size
 - **CLI Version File Size**: `138,752 Bytes` (~135.5 KB)
-- **GUI Version File Size**: `8,218,624 Bytes` (~7.84 MB) *(Includes fully static-linked wgpu / egui / eframe rendering pipeline)*
-- **Evaluation**: The CLI version is ultra-compact as it only includes pure rational logic. The GUI version stays lean while packing a full graphics engine due to aggressive release profile optimizations.
+- **Evaluation**: The CLI version is ultra-compact with zero external dependencies, containing only pure rational logic and argument parsing.
 
 ### 1.2 Memory Usage (RAM)
 - **Peak Physical Working Set**: Estimated `1.2 MB – 2.0 MB` during execution.

@@ -7,6 +7,18 @@
 このファイルのフォーマットは [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) に基づいており、
 このプロジェクトは [セマンティック バージョニング](https://semver.org/spec/v2.0.0.html) に準拠しています。
 
+## [0.5.0] - 2026-08-12
+
+### 削除 (Removed)
+- **`egui` / GUI機能の完全削除**:
+  - `src/gui.rs` を削除し、`Cargo.toml` から `eframe`, `windows`, `winapi`, `common_lib` などのGUI用依存ライブラリおよび `gui` feature を削除。
+  - `bunka` を外部依存を持たない純粋かつ超軽量なコマンドライン（CLI）専用ツールとして最適化。
+  - `.github/workflows/release.yml` および `ci.yml` から GUI ビルド手順を削除。
+
+### 変更 (Changed)
+- **引数解析の堅牢化とユニットテストの拡充**:
+  - `src/cli.rs` に引数解析用の `parse_cli_args` 関数と CLI オプション検証の単体テストケースを追加。
+
 ## [未リリース] - 2026-07-21
 
 ### 変更 (Changed)

@@ -2,7 +2,7 @@
 
 # Technical Specification (SPEC.md)
 
-Software requirements, interface definitions, rational algorithms, and GUI specifications for `bunka`.
+Software requirements, interface definitions, and rational algorithm specifications for `bunka`.
 
 ---
 
@@ -22,13 +22,3 @@ Software requirements, interface definitions, rational algorithms, and GUI speci
 | :--- | :--- | :--- | :--- | :--- |
 | `--max-den` | `-d` | Positive Integer (`u64`) | `100,000` | Maximum denominator limit. |
 | `--tolerance` | `-t` | Positive Float (`f64`) | `1e-6` | Approximation error tolerance threshold. |
-
----
-
-## 2. GUI Specifications
-
-Built using `eframe` / `egui` when `--features gui` is enabled.
-
-- **Window Setup**: Frameless (`decorated: false`), transparent (`transparent: true`), always-on-top (`always_on_top: true`).
-- **Single Instance**: Protected via Named Mutex provided by `common_lib`.
-- **Custom Header**: Header drag interaction triggers native window moving (`ViewportCommand::StartDrag`).

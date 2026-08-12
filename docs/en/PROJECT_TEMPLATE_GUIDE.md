@@ -2,7 +2,7 @@
 
 # Project Template Guide (PROJECT_TEMPLATE_GUIDE.md)
 
-This guide provides setup templates and workflows for standardizing Rust desktop/CLI applications.
+This guide provides setup templates and workflows for standardizing Rust CLI applications.
 
 ---
 
