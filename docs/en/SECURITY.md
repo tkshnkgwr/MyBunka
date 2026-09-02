@@ -10,8 +10,8 @@ Security policy and vulnerability disclosure procedures for `MyBunka`.
 
 | Version | Supported                    |
 | :------ | :--------------------------- |
-| 0.5.x   | :white_check_mark: Supported |
-| < 0.5.0 | :x: Unsupported              |
+| 1.0.x   | :white_check_mark: Supported |
+| < 1.0.0 | :x: Unsupported              |
 
 ---
 

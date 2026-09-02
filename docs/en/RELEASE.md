@@ -15,7 +15,7 @@ GitHub Actions workflow (`.github/workflows/release.yml`) monitors `Cargo.toml` 
    ```toml
    [package]
    name = "mybunka"
-   version = "0.5.1"
+   version = "1.0.1"
    ```
 
 2. **Update Changelog**:
@@ -24,9 +24,9 @@ GitHub Actions workflow (`.github/workflows/release.yml`) monitors `Cargo.toml` 
 3. **Commit & Push to `main`**:
 
    ```bash
-   git commit -am "chore: bump version to 0.5.1"
+   git commit -am "chore: bump version to 1.0.1"
    git push origin main
    ```
 
 4. **Automated GitHub Release**:
-   Actions will automatically detect the new tag `v0.5.1`, build production binary (CLI), and publish the GitHub release asset (`MyBunka-windows-x64.zip`).
+   Actions will automatically detect the new tag `v1.0.1`, build production binary (CLI), and publish the GitHub release asset (`MyBunka-windows-x64.zip`).

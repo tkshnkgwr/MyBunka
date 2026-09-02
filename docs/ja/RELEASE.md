@@ -16,7 +16,7 @@
    ```toml
    [package]
    name = "mybunka"
-   version = "0.5.1" # 例: 0.5.0 -> 0.5.1
+   version = "1.0.1" # 例: 1.0.0 -> 1.0.1
    ```
 
 2. **変更内容のドキュメント更新**:
@@ -25,12 +25,12 @@
 3. **コミットおよび `main` ブランチへのプッシュ**:
 
    ```bash
-   git commit -am "chore: bump version to 0.5.1"
+   git commit -am "chore: bump version to 1.0.1"
    git push origin main
    ```
 
 4. **自動化ワークフローの実行**:
-   - GitHub Actions が自動でトリガーされ、`v0.5.1` タグの有無をチェックします。
+   - GitHub Actions が自動でトリガーされ、`v1.0.1` タグの有無をチェックします。
    - タグが存在しない場合、CLI版バイナリがビルド・パッケージングされ、GitHub Release が自動生成されます。
 
 ---

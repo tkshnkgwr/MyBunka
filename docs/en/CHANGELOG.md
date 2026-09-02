@@ -8,8 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-09-02
+
 ### Changed
-- **Renamed Project & Command to `MyBunka`**:
+- **Renamed Project & Command to `MyBunka` and Officially Released Major Version 1.0.0**:
   - Changed `Cargo.toml` package name to `mybunka` and binary target name to `MyBunka` (outputs `MyBunka.exe`).
   - Updated CLI help messages, version outputs, and test cases to `MyBunka`.
   - Updated GitHub Actions release workflow asset name to `MyBunka-windows-x64.zip`.
