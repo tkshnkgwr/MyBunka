@@ -28,7 +28,7 @@ where
     let args_vec: Vec<String> = args.into_iter().map(|s| s.as_ref().to_owned()).collect();
     if args_vec.len() < 2 {
         return Err(
-            "使用方法: bunka <小数点数> [オプション]\n例) bunka 0.142857  ->  1/7".to_string(),
+            "使用方法: MyBunka <小数点数> [オプション]\n例) MyBunka 0.142857  ->  1/7".to_string(),
         );
     }
 
@@ -127,7 +127,7 @@ pub fn run_cli() {
         process::exit(0);
     }
     if opts.is_version {
-        println!("bunka {}", env!("CARGO_PKG_VERSION"));
+        println!("MyBunka {}", env!("CARGO_PKG_VERSION"));
         process::exit(0);
     }
 
@@ -147,10 +147,10 @@ pub fn run_cli() {
 }
 
 fn print_help() {
-    println!("bunka - 小数点数から分数への近似変換ツール");
+    println!("MyBunka - 小数点数から分数への近似変換ツール");
     println!();
     println!("使用方法:");
-    println!("    bunka <小数点数> [オプション]");
+    println!("    MyBunka <小数点数> [オプション]");
     println!();
     println!("引数:");
     println!("    <小数点数>        分数に近似変換したい浮動小数点数");
@@ -162,8 +162,8 @@ fn print_help() {
     println!("    -v, -V, --version バージョン情報を表示して終了します");
     println!();
     println!("使用例:");
-    println!("    bunka 0.142857   -> 1/7");
-    println!("    bunka 3.14159265 -d 1000 -> 355/113");
+    println!("    MyBunka 0.142857   -> 1/7");
+    println!("    MyBunka 3.14159265 -d 1000 -> 355/113");
 }
 
 #[cfg(test)]
@@ -172,7 +172,7 @@ mod tests {
 
     #[test]
     fn test_parse_cli_args_basic() {
-        let args = vec!["bunka", "0.142857"];
+        let args = vec!["MyBunka", "0.142857"];
         let opts = parse_cli_args(args).unwrap();
         assert_eq!(opts.input_str, "0.142857");
         assert_eq!(opts.max_den, 100_000);
@@ -183,7 +183,7 @@ mod tests {
 
     #[test]
     fn test_parse_cli_args_options() {
-        let args = vec!["bunka", "0.5", "-d", "1000", "-t", "1e-4"];
+        let args = vec!["MyBunka", "0.5", "-d", "1000", "-t", "1e-4"];
         let opts = parse_cli_args(args).unwrap();
         assert_eq!(opts.input_str, "0.5");
         assert_eq!(opts.max_den, 1000);
@@ -192,17 +192,17 @@ mod tests {
 
     #[test]
     fn test_parse_cli_args_help_version() {
-        let opts = parse_cli_args(vec!["bunka", "-h"]).unwrap();
+        let opts = parse_cli_args(vec!["MyBunka", "-h"]).unwrap();
         assert!(opts.is_help);
 
-        let opts = parse_cli_args(vec!["bunka", "--version"]).unwrap();
+        let opts = parse_cli_args(vec!["MyBunka", "--version"]).unwrap();
         assert!(opts.is_version);
     }
 
     #[test]
     fn test_parse_cli_args_invalid() {
-        assert!(parse_cli_args(vec!["bunka"]).is_err());
-        assert!(parse_cli_args(vec!["bunka", "0.5", "-d"]).is_err());
-        assert!(parse_cli_args(vec!["bunka", "0.5", "--unknown"]).is_err());
+        assert!(parse_cli_args(vec!["MyBunka"]).is_err());
+        assert!(parse_cli_args(vec!["MyBunka", "0.5", "-d"]).is_err());
+        assert!(parse_cli_args(vec!["MyBunka", "0.5", "--unknown"]).is_err());
     }
 }

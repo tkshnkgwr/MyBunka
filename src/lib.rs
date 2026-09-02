@@ -1,6 +1,6 @@
-//! # Bunka (分化)
+//! # MyBunka (分化)
 //!
-//! `bunka` は浮動小数点数値またはパーセント表記の文字列を受け取り、
+//! `MyBunka` は浮動小数点数値またはパーセント表記の文字列を受け取り、
 //! 連分数展開アルゴリズムを用いて高精度な分数（分子 / 分母）に近似変換するためのライブラリおよびツールです。
 //!
 //! ## 特徴
@@ -27,7 +27,7 @@ pub mod cli;
 /// # 例
 ///
 /// ```
-/// use bunka::approximate_fraction;
+/// use mybunka::approximate_fraction;
 /// let (num, den, error) = approximate_fraction(0.142857, 100000, 1e-6);
 /// assert_eq!(num, 1);
 /// assert_eq!(den, 7);
@@ -109,7 +109,7 @@ pub fn approximate_fraction(value: f64, max_denominator: u64, tolerance: f64) ->
 /// # 例
 ///
 /// ```
-/// use bunka::parse_decimal_or_percent;
+/// use mybunka::parse_decimal_or_percent;
 /// assert_eq!(parse_decimal_or_percent("10%").unwrap(), 0.1);
 /// assert_eq!(parse_decimal_or_percent("0.142857").unwrap(), 0.142857);
 /// ```

@@ -2,7 +2,7 @@
 
 # Test Verification Report (TEST_REPORT.md)
 
-Verification environment, test cases, and empirical test results for `bunka`.
+Verification environment, test cases, and empirical test results for `MyBunka`.
 
 ---
 
@@ -16,13 +16,13 @@ Verification environment, test cases, and empirical test results for `bunka`.
 
 ## 2. Test Cases & Execution Results
 
-| Test ID | Input | Expected Output | Actual Output | Status |
-| :--- | :--- | :--- | :--- | :--- |
-| TC-01 | `0.142857` | `1/7` | `1/7` | **PASS** |
-| TC-02 | `0.333333` | `1/3` | `1/3` | **PASS** |
-| TC-03 | `3.14159265` | `355/113` | `355/113` | **PASS** |
-| TC-04 | `0.0` | `0/1` | `0/1` | **PASS** |
-| TC-05 | `-0.5` | `-1/2` | `-1/2` | **PASS** |
-| TC-16 | `10%` | `1/10` | `1/10` | **PASS** |
+| Test ID | Input        | Expected Output | Actual Output | Status   |
+| :------ | :----------- | :-------------- | :------------ | :------- |
+| TC-01   | `0.142857`   | `1/7`           | `1/7`         | **PASS** |
+| TC-02   | `0.333333`   | `1/3`           | `1/3`         | **PASS** |
+| TC-03   | `3.14159265` | `355/113`       | `355/113`     | **PASS** |
+| TC-04   | `0.0`        | `0/1`           | `0/1`         | **PASS** |
+| TC-05   | `-0.5`       | `-1/2`          | `-1/2`        | **PASS** |
+| TC-16   | `10%`        | `1/10`          | `1/10`        | **PASS** |
 
-All unit test suites (`cargo test --all-features`) pass cleanly (`ok. 4 passed; 0 failed`).
+All unit test suites (`cargo test`) pass cleanly (`ok. 8 passed; 0 failed`).

@@ -2,7 +2,7 @@
 
 # System Diagrams (DIAGRAM.md)
 
-This document visually explains the execution flow of the CLI version of `bunka` using diagrams.
+This document visually explains the execution flow of the CLI version of `MyBunka` using diagrams.
 
 ---
 
@@ -20,7 +20,7 @@ graph TD
     PrintDetailHelp --> ExitSuccess([Exit Code 0])
     
     CheckHelp -- No --> CheckVersion{Arg 1 is --version, -v, -V?}
-    CheckVersion -- Yes --> PrintVersion[Output 'bunka version' to stdout]
+    CheckVersion -- Yes --> PrintVersion[Output 'MyBunka version' to stdout]
     PrintVersion --> ExitSuccess
     
     CheckVersion -- No --> ParseVal{Parse Arg 1<br>(f64 or % notation)}

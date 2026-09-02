@@ -2,7 +2,7 @@
 
 # AI Coding Instructions (INSTRUCTIONS.md)
 
-This document outlines coding conventions, design policies, and response formats that AI agents (Daikenja) and human developers must follow when modifying code in `bunka`.
+This document outlines coding conventions, design policies, and response formats that AI agents (Daikenja) and human developers must follow when modifying code in `MyBunka`.
 
 ---
 

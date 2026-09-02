@@ -2,7 +2,7 @@
 
 # システム構成図 (DIAGRAM.md)
 
-このドキュメントでは、`bunka` の CLI 実行における処理フローをダイアグラムを用いて視覚的に説明します。
+このドキュメントでは、`MyBunka` の CLI 実行における処理フローをダイアグラムを用いて視覚的に説明します。
 
 ---
 
@@ -22,7 +22,7 @@ graph TD
     PrintDetailHelp --> ExitSuccess([終了コード 0 で終了])
     
     CheckHelp -- いいえ --> CheckVersion{第1引数が --version, -v, -V?}
-    CheckVersion -- はい --> PrintVersion[stdout に 'bunka バージョン' を出力]
+    CheckVersion -- はい --> PrintVersion[stdout に 'MyBunka バージョン' を出力]
     PrintVersion --> ExitSuccess
     
     CheckVersion -- いいえ --> ParseVal{第1引数をパース<br>(f64 または % 表記)}

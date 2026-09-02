@@ -1,3 +1,3 @@
 fn main() {
-    bunka::cli::run_cli();
+    mybunka::cli::run_cli();
 }

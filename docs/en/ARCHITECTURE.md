@@ -2,15 +2,16 @@
 
 # System Architecture (ARCHITECTURE.md)
 
-This document describes the system architecture, structural design intents, technology stack, and data flow across modules for `bunka`.
+This document describes the system architecture, structural design intents, technology stack, and data flow across modules for `MyBunka`.
 
 ---
 
 ## 1. System Overview & Objectives
 
-`bunka` (分化) is an application and library designed to approximate floating-point numbers (e.g., `0.142857`) or percentage notations (e.g., `10%`) into optimal reduced fraction representations (e.g., `1/7`, `1/10`).
+`MyBunka` (分化) is an application and library designed to approximate floating-point numbers (e.g., `0.142857`) or percentage notations (e.g., `10%`) into optimal reduced fraction representations (e.g., `1/7`, `1/10`).
 
 ### Core Objectives
+
 - **High-Precision Rational Approximation**: Rapid and precise conversion from decimal numbers to intuitive fractional expressions.
 - **Lightweight CLI Interface**: A zero-dependency, ultra-compact **CLI Tool** suitable for scripting and automated pipelines.
 - **High Efficiency & Resource Optimization**: Fast continued fraction expansion algorithm minimizing heap allocations and memory footprint.
@@ -20,6 +21,7 @@ This document describes the system architecture, structural design intents, tech
 ## 2. Technology Stack
 
 ### 2.1 Language
+
 - **Rust (Edition 2024)**: Offers memory safety, zero-cost abstractions, and high execution speed.
 
 ---
@@ -27,7 +29,7 @@ This document describes the system architecture, structural design intents, tech
 ## 3. Directory Structure & Architecture Intent
 
 ```text
-bunka/
+MyBunka/
 ├── .agents/
 │   ├── AGENTS.md               # AI development guidelines & rules
 │   └── INSTRUCTIONS.md         # AI coding style instructions
@@ -62,6 +64,7 @@ bunka/
 ## 4. Data Flow & Module Cooperation
 
 ### 4.1 CLI Data Flow
+
 1. `main.rs` invokes `cli::run_cli()`.
 2. `cli.rs` parses arguments from `std::env::args()`.
 3. Passes input string to `lib::parse_decimal_or_percent()` to parse percentages or decimals into an `f64`.

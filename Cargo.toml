@@ -1,8 +1,12 @@
 [package]
-name = "bunka"
+name = "mybunka"
 version = "0.5.0"
 edition = "2024"
 license = "MIT"
+
+[[bin]]
+name = "MyBunka"
+path = "src/main.rs"
 
 [dependencies]
 

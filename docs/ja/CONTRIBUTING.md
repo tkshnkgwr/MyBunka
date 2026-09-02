@@ -2,24 +2,28 @@
 
 # 貢献ガイドライン (CONTRIBUTING.md)
 
-`bunka` プロジェクトへの貢献に関心を持っていただき、ありがとうございます！
+`MyBunka` プロジェクトへの貢献に関心を持っていただき、ありがとうございます！
 
 ## 1. 開発環境のセットアップ
 
 1. **Rust ツールのインストール**:
    最新の Stable ツールチェーンをインストールしてください。
+
    ```bash
    rustup update stable
    ```
+
 2. **リポジトリのクローン**:
+
    ```bash
-   git clone https://github.com/tkshnkgwr/bunka.git
-   cd bunka
+   git clone https://github.com/tkshnkgwr/MyBunka.git
+   cd MyBunka
    ```
 
 ## 2. コミット規約
 
 コミットメッセージは以下の Conventional Commits 形式に従ってください：
+
 - `feat:` 新機能追加
 - `fix:` バグ修正
 - `docs:` ドキュメントの変更

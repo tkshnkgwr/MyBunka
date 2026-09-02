@@ -1,14 +1,14 @@
-# Bunka (分数近似ツール)
+# MyBunka (分数近似ツール)
 
-[![Latest Release](https://img.shields.io/github/v/release/tkshnkgwr/bunka)](https://github.com/tkshnkgwr/bunka/releases)
-[![CI](https://github.com/tkshnkgwr/bunka/actions/workflows/ci.yml/badge.svg)](https://github.com/tkshnkgwr/bunka/actions/workflows/ci.yml)
+[![Latest Release](https://img.shields.io/github/v/release/tkshnkgwr/MyBunka)](https://github.com/tkshnkgwr/MyBunka/releases)
+[![CI](https://github.com/tkshnkgwr/MyBunka/actions/workflows/ci.yml/badge.svg)](https://github.com/tkshnkgwr/MyBunka/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Rust](https://img.shields.io/badge/Rust-2024-orange?logo=rust)](https://www.rust-lang.org/)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)](https://github.com/tkshnkgwr/bunka)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)](https://github.com/tkshnkgwr/MyBunka)
 
 [English](README.md) | **日本語版**
 
-`bunka` は、与えられた小数点数やパーセント表記（例：`10%`）を**連分数展開（Continued Fraction Expansion）アルゴリズム**を用いて、近似的な分数（分子/分母）に変換する軽量な Rust 製コマンドラインツールです。
+`MyBunka` は、与えられた小数点数やパーセント表記（例：`10%`）を**連分数展開（Continued Fraction Expansion）アルゴリズム**を用いて、近似的な分数（分子/分母）に変換する軽量な Rust 製コマンドラインツールです。
 
 ## 特徴
 
@@ -30,14 +30,14 @@
 cargo build --release
 ```
 
-最適化されたバイナリが `target/release/bunka.exe` (Linux/macOS の場合は `target/release/bunka`) に生成されます。
+最適化されたバイナリが `target/release/MyBunka.exe` (Linux/macOS の場合は `target/release/MyBunka`) に生成されます。
 
 ## 使い方
 
 コマンドライン引数に変換したい小数点数とオプションを指定して実行します：
 
 ```bash
-bunka <小数点数> [オプション]
+MyBunka <小数点数> [オプション]
 ```
 
 ### オプション
@@ -50,23 +50,23 @@ bunka <小数点数> [オプション]
 ### 実行例
 
 ```bash
-$ bunka 0.142857
+$ MyBunka 0.142857
 1/7
 
 # 最大分母を100に制限する
-$ bunka 3.14159265 -d 100
+$ MyBunka 3.14159265 -d 100
 22/7
 
 # 許容誤差を極めて小さくし、最大分母を拡張する
-$ bunka 0.142857 -t 1e-10 -d 10000000
+$ MyBunka 0.142857 -t 1e-10 -d 10000000
 142857/1000000
 
 # パーセント表記の入力（自動で100で除算されます）
-$ bunka 10%
+$ MyBunka 10%
 1/10
 
 # スペースや負の数を含むパーセント表記の入力
-$ bunka "  -5.5 % "
+$ MyBunka "  -5.5 % "
 -11/200
 ```
 
@@ -75,17 +75,18 @@ $ bunka "  -5.5 % "
 引数が指定されていない場合や、無効な文字列が渡された場合は、標準エラー出力（`stderr`）にヘルプまたはエラーメッセージを出力し、終了コード `1` で終了します。
 
 ```bash
-$ bunka
-使用方法: bunka <小数点数> [オプション]
-例) bunka 0.142857  ->  1/7
+$ MyBunka
+使用方法: MyBunka <小数点数> [オプション]
+例) MyBunka 0.142857  ->  1/7
 
-$ bunka invalid
+$ MyBunka invalid
 エラー: 'invalid' は無効な数値またはパーセント表記です
 ```
 
 ## 📚 ドキュメント一覧
 
 詳細なドキュメントは `docs/ja/` 配下の各ファイルを参照してください：
+
 - [システム仕様書 (docs/ja/SPEC.md)](docs/ja/SPEC.md) - アルゴリズムの詳細および引数仕様。
 - [システム設計書 (docs/ja/ARCHITECTURE.md)](docs/ja/ARCHITECTURE.md) - システムの全体設計、技術スタック、ディレクトリ構造、データフロー。
 - [構成図・フローチャート (docs/ja/DIAGRAM.md)](docs/ja/DIAGRAM.md) - 処理フローと構造図。
@@ -100,10 +101,10 @@ $ bunka invalid
 - [プロジェクト初期設定テンプレートガイド (docs/ja/PROJECT_TEMPLATE_GUIDE.md)](docs/ja/PROJECT_TEMPLATE_GUIDE.md) - エディタ、CI/CD、Dependabotの設定テンプレート。
 - [変更履歴 (docs/ja/CHANGELOG.md)](docs/ja/CHANGELOG.md) - プロジェクトの変更履歴。
 
-
 ## 開発 (Development)
 
 本リポジトリには、エディタ設定の統一や自動化ワークフローが組み込まれています：
+
 - **エディタ設定の統一**: コードの書式を一貫させるため、[.editorconfig](.editorconfig) および VS Code 用設定 [.vscode/settings.json](.vscode/settings.json) を提供しています。
 - **CI/CD**: プルリクエストやメインブランチへのプッシュ時に [.github/workflows/ci.yml](.github/workflows/ci.yml) による自動テストを実行します。また、リリースタグ（`v*`）のプッシュ時には、Windows 向け CLI バイナリをビルドし、zip アーカイブにまとめて GitHub Releases に自動デプロイする [.github/workflows/release.yml](.github/workflows/release.yml) を設定しています。
 - **自動アップデート (Dependabot)**: 依存ライブラリや GitHub Actions の更新を週次でチェックし、PR を自動作成する [.github/dependabot.yml](.github/dependabot.yml) を設定しています。
@@ -111,3 +112,4 @@ $ bunka invalid
 ## ライセンス
 
 本プロジェクトは [MIT ライセンス](LICENSE) の下でオープンソースとして公開されています。詳細については [LICENSE](LICENSE) ファイルを参照してください。
+

@@ -1,14 +1,14 @@
-# Bunka
+# MyBunka
 
-[![Latest Release](https://img.shields.io/github/v/release/tkshnkgwr/bunka)](https://github.com/tkshnkgwr/bunka/releases)
-[![CI](https://github.com/tkshnkgwr/bunka/actions/workflows/ci.yml/badge.svg)](https://github.com/tkshnkgwr/bunka/actions/workflows/ci.yml)
+[![Latest Release](https://img.shields.io/github/v/release/tkshnkgwr/MyBunka)](https://github.com/tkshnkgwr/MyBunka/releases)
+[![CI](https://github.com/tkshnkgwr/MyBunka/actions/workflows/ci.yml/badge.svg)](https://github.com/tkshnkgwr/MyBunka/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Rust](https://img.shields.io/badge/Rust-2024-orange?logo=rust)](https://www.rust-lang.org/)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)](https://github.com/tkshnkgwr/bunka)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-blue)](https://github.com/tkshnkgwr/MyBunka)
 
 **English** | [日本語版](README_JA.md)
 
-`bunka` is a lightweight Rust command-line utility that approximates any decimal or percentage input (e.g. `10%`) into its fractional representation (numerator/denominator) using the **Continued Fraction Expansion** algorithm.
+`MyBunka` is a lightweight Rust command-line utility that approximates any decimal or percentage input (e.g. `10%`) into its fractional representation (numerator/denominator) using the **Continued Fraction Expansion** algorithm.
 
 ## Features
 
@@ -30,14 +30,14 @@ Clone this repository and build the release binary:
 cargo build --release
 ```
 
-The optimized binary will be generated at `target/release/bunka.exe` (or `target/release/bunka` on Linux/macOS).
+The optimized binary will be generated at `target/release/MyBunka.exe` (or `target/release/MyBunka` on Linux/macOS).
 
 ## Usage
 
 Run the program by passing a decimal number as a command-line argument:
 
 ```bash
-bunka <decimal_number> [options]
+MyBunka <decimal_number> [options]
 ```
 
 ### Options
@@ -50,42 +50,43 @@ bunka <decimal_number> [options]
 ### Examples
 
 ```bash
-$ bunka 0.142857
+$ MyBunka 0.142857
 1/7
 
 # Set maximum denominator to 100
-$ bunka 3.14159265 -d 100
+$ MyBunka 3.14159265 -d 100
 22/7
 
 # Increase precision criteria
-$ bunka 0.142857 -t 1e-10 -d 10000000
+$ MyBunka 0.142857 -t 1e-10 -d 10000000
 142857/1000000
 
 # Parse percentage input (automatically divided by 100)
-$ bunka 10%
+$ MyBunka 10%
 1/10
 
 # Parse negative percentage input with spaces
-$ bunka "  -5.5 % "
+$ MyBunka "  -5.5 % "
 -11/200
 ```
 
 ### Errors
 
-If the argument is missing or not a valid floating-point number, `bunka` will output an error message to `stderr` and exit with code `1`:
+If the argument is missing or not a valid floating-point number, `MyBunka` will output an error message to `stderr` and exit with code `1`:
 
 ```bash
-$ bunka
-使用方法: bunka <小数点数> [オプション]
-例) bunka 0.142857  ->  1/7
+$ MyBunka
+使用方法: MyBunka <小数点数> [オプション]
+例) MyBunka 0.142857  ->  1/7
 
-$ bunka invalid
+$ MyBunka invalid
 エラー: 'invalid' は無効な数値またはパーセント表記です
 ```
 
 ## 📚 Documentation
 
 For more detailed documentation, please refer to the files in `docs/en/`:
+
 - [Specification](docs/en/SPEC.md) - Algorithm details and CLI argument specification.
 - [System Architecture](docs/en/ARCHITECTURE.md) - System design, technology stack, directory structure, and data flow.
 - [System Diagrams](docs/en/DIAGRAM.md) - Flowcharts and architecture diagrams.
@@ -103,6 +104,7 @@ For more detailed documentation, please refer to the files in `docs/en/`:
 ## Development
 
 This repository includes unified editor configurations and automated workflows:
+
 - **Editor Configurations**: [.editorconfig](.editorconfig) and [.vscode/settings.json](.vscode/settings.json) are provided to ensure consistent code styling.
 - **CI/CD**: Automatic testing is run on PRs/pushes via [.github/workflows/ci.yml](.github/workflows/ci.yml). Automatic release binaries (CLI version in a zip file) are created and uploaded to GitHub Releases when pushing a tag (`v*`) via [.github/workflows/release.yml](.github/workflows/release.yml).
 - **Dependabot**: Automatically checks for dependency updates weekly ([.github/dependabot.yml](.github/dependabot.yml)).
@@ -110,3 +112,4 @@ This repository includes unified editor configurations and automated workflows:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+

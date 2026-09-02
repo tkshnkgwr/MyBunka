@@ -2,24 +2,28 @@
 
 # Contribution Guidelines (CONTRIBUTING.md)
 
-Thank you for your interest in contributing to `bunka`!
+Thank you for your interest in contributing to `MyBunka`!
 
 ## 1. Setup Environment
 
 1. **Install Rust**:
    Ensure you have the latest stable Rust toolchain:
+
    ```bash
    rustup update stable
    ```
+
 2. **Clone Repository**:
+
    ```bash
-   git clone https://github.com/tkshnkgwr/bunka.git
-   cd bunka
+   git clone https://github.com/tkshnkgwr/MyBunka.git
+   cd MyBunka
    ```
 
 ## 2. Commit Message Conventions
 
 Please follow Conventional Commits format:
+
 - `feat:` New features
 - `fix:` Bug fixes
 - `docs:` Documentation changes

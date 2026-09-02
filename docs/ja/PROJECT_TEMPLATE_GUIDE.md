@@ -204,7 +204,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
-*※注: テンプレート内の `<YOUR_APP_NAME>` は、作成するアプリケーション名（例: `bunka` など、`Cargo.toml` の `name` フィールドに指定した値）に置換して使用してください。*
+*※注: テンプレート内の `<YOUR_APP_NAME>` は、作成するアプリケーション名（例: `MyBunka` など、`Cargo.toml` の `name` フィールドに指定した値）に置換して使用してください。*
 
 ---
 

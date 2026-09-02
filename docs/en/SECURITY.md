@@ -2,16 +2,16 @@
 
 # Security Policy (SECURITY.md)
 
-Security policy and vulnerability disclosure procedures for `bunka`.
+Security policy and vulnerability disclosure procedures for `MyBunka`.
 
 ---
 
 ## 1. Supported Versions
 
-| Version | Supported |
-| :--- | :--- |
-| 0.4.x | :white_check_mark: Supported |
-| < 0.4.0 | :x: Unsupported |
+| Version | Supported                    |
+| :------ | :--------------------------- |
+| 0.5.x   | :white_check_mark: Supported |
+| < 0.5.0 | :x: Unsupported              |
 
 ---
 

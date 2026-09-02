@@ -7,6 +7,15 @@
 このファイルのフォーマットは [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) に基づいており、
 このプロジェクトは [セマンティック バージョニング](https://semver.org/spec/v2.0.0.html) に準拠しています。
 
+## [未リリース]
+
+### 変更 (Changed)
+- **プロジェクト名およびコマンド名を `MyBunka` へ改名**:
+  - `Cargo.toml` のクレート名を `mybunka`、バイナリ名を `MyBunka` に変更（`MyBunka.exe` を生成）。
+  - ソースコード内のヘルプ出力、バージョン表記、およびテストコードを `MyBunka` に更新。
+  - GitHub Actions リリースワークフロー（`release.yml`）の成果物アーカイブ名を `MyBunka-windows-x64.zip` に更新。
+  - プロジェクト全体のドキュメント（`README`, `docs/ja/`, `docs/en/` 等）を `MyBunka` に完全同期。
+
 ## [0.5.0] - 2026-08-12
 
 ### 削除 (Removed)
