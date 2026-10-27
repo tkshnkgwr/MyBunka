@@ -128,7 +128,7 @@ pub fn run_cli() {
     }
     if opts.is_version {
         println!(
-            "MyBunka v{}\nCopyright (c) 2026 tkshnkgwr\nLicense: MIT",
+            "MyBunka v{}\nCopyright (c) 2026 tkshnkgwr\nLicense: GPL-3.0-or-later",
             env!("CARGO_PKG_VERSION")
         );
         process::exit(0);

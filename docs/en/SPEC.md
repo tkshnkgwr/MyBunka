@@ -18,7 +18,7 @@ This document describes the software requirements, interface definitions, and de
   - Help display: `MyBunka --help` (or `-h`)
 - **Standard Output (stdout)**:
   - Number conversion: Reduced fraction formatted as `<numerator>/<denominator>` (e.g., `1/7`, `1/10`).
-  - Version display: Multi-line string in the format `MyBunka v<version>\nCopyright (c) 2026 tkshnkgwr\nLicense: MIT` (e.g., `MyBunka v1.0.0`).
+  - Version display: Multi-line string in the format `MyBunka v<version>\nCopyright (c) 2026 tkshnkgwr\nLicense: GPL-3.0-or-later` (e.g., `MyBunka v1.1.0`).
   - Help display: Usage instructions, arguments, options, and practical examples.
 - **Standard Error (stderr)**: Outputs error messages and usage hints upon execution failure or invalid arguments.
 - **Exit Codes**:

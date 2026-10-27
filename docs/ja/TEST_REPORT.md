@@ -41,9 +41,9 @@
 PS MyBunka> target/release/MyBunka.exe 0.142857
 1/7
 PS MyBunka> target/release/MyBunka.exe --version
-MyBunka v1.0.0
+MyBunka v1.1.0
 Copyright (c) 2026 tkshnkgwr
-License: MIT
+License: GPL-3.0-or-later
 PS MyBunka> target/release/MyBunka.exe --help
 MyBunka - 小数点数から分数への近似変換ツール
 

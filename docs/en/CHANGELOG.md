@@ -8,6 +8,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-27
+
+### Changed
+- **Relicensed under GNU General Public License v3.0 or later (GPL-3.0-or-later)**:
+  - Transitioned the open-source license from MIT License to **GPL-3.0-or-later**.
+  - Updated `LICENSE` file with full GNU GPL v3 text.
+  - Updated `license` field in `Cargo.toml` to `GPL-3.0-or-later`.
+  - Updated `--version` output in `src/cli.rs` to display `License: GPL-3.0-or-later`.
+  - Synchronized documentation, license badges, and example outputs in `README.md`, `README_JA.md`, `SPEC.md`, and `TEST_REPORT.md`.
+
 ## [1.0.1] - 2026-10-27
 
 ### Changed

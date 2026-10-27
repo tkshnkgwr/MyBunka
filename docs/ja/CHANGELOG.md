@@ -9,6 +9,16 @@
 
 ## [未リリース]
 
+## [1.1.0] - 2026-10-27
+
+### 変更 (Changed)
+- **ライセンスの変更 (GPL-3.0-or-later)**:
+  - プロジェクトのオープンソースライセンスを MIT License から **GNU General Public License v3.0 or later (GPL-3.0-or-later)** へ変更。
+  - `LICENSE` ファイルを GPL v3 フルテキストに更新。
+  - `Cargo.toml` の `license` フィールドを `GPL-3.0-or-later` に更新。
+  - `src/cli.rs` のバージョン表示 (`--version`, `-v`) に出力されるライセンス表記を `License: GPL-3.0-or-later` に更新。
+  - `README.md`、`README_JA.md`、`SPEC.md`、`TEST_REPORT.md` 等の各ドキュメントおよびライセンスバッジを同期。
+
 ## [1.0.1] - 2026-10-27
 
 ### 変更 (Changed)
