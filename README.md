@@ -8,21 +8,22 @@
 
 **English** | [日本語版](README_JA.md)
 
-`MyBunka` is a lightweight Rust command-line utility that approximates any decimal or percentage input (e.g. `10%`) into its fractional representation (numerator/denominator) using the **Continued Fraction Expansion** algorithm.
+`MyBunka` is an ultra-lightweight Rust command-line utility that approximates any decimal or percentage input (e.g. `10%`) into its optimal rational fraction (numerator/denominator) using the **Continued Fraction Expansion** algorithm.
 
-## Features
+## ✨ Features
 
-- **High Precision**: Custom tolerance and maximum denominator limits allow for accurate fractional approximations.
-- **Ultra-lightweight**: Highly optimized release binary size (~138.5 KB) with zero external dependencies.
-- **Mathematical Integrity**: Utilizes the continued fraction algorithm to find the best rational approximation.
+- **High Precision**: Computes the mathematically most optimal reduced fraction approximations via continued fraction expansion.
+- **Percentage Support**: Accepts standard decimals (e.g., `0.142857`) as well as percentages (e.g., `10%`, `"  -5.5 % "`).
+- **Ultra-lightweight & Fast**: Zero external dependencies (Rust standard library only), ~135 KB release binary size, and less than 2 MB memory footprint.
+- **Configurable Parameters**: Customize maximum denominator (`--max-den`) and error tolerance (`--tolerance`).
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- [Rust toolchain](https://rustup.rs/) (edition 2024 supported)
+- [Rust Toolchain](https://rustup.rs/) (edition 2024 supported)
 
-### Installation & Build
+### Build & Installation
 
 Clone this repository and build the release binary:
 
@@ -32,47 +33,54 @@ cargo build --release
 
 The optimized binary will be generated at `target/release/MyBunka.exe` (or `target/release/MyBunka` on Linux/macOS).
 
-## Usage
+## 💻 Usage
 
-Run the program by passing a decimal number as a command-line argument:
+Run the program by passing a decimal number or percentage string as a command-line argument:
 
 ```bash
-MyBunka <decimal_number> [options]
+MyBunka <decimal_or_percentage> [options]
 ```
 
 ### Options
 
-- `-d, --max-den <value>`: Maximum denominator allowed for approximation (default: 100,000)
-- `-t, --tolerance <value>`: Tolerance criteria for the calculation (default: 1e-6)
+- `-d, --max-den <value>`: Maximum denominator allowed for approximation (default: `100,000`)
+- `-t, --tolerance <value>`: Error tolerance threshold for approximation (default: `1e-6`)
 - `-h, --help`: Prints help information
-- `-v, -V, --version`: Prints version information
+- `-v, -V, --version`: Prints version, copyright, and license information
 
 ### Examples
 
 ```bash
+# Basic rational approximation
 $ MyBunka 0.142857
 1/7
 
-# Set maximum denominator to 100
+# Constrain maximum denominator to 100 (Archimedes approximation for pi)
 $ MyBunka 3.14159265 -d 100
 22/7
 
-# Increase precision criteria
+# Tighten tolerance and expand denominator for exact fractional representation
 $ MyBunka 0.142857 -t 1e-10 -d 10000000
 142857/1000000
 
-# Parse percentage input (automatically divided by 100)
+# Percentage input (automatically divided by 100)
 $ MyBunka 10%
 1/10
 
-# Parse negative percentage input with spaces
+# Percentage input with whitespace and negative value
 $ MyBunka "  -5.5 % "
 -11/200
+
+# Version display
+$ MyBunka -v
+MyBunka v1.0.0
+Copyright (c) 2026 tkshnkgwr
+License: MIT
 ```
 
 ### Errors
 
-If the argument is missing or not a valid floating-point number, `MyBunka` will output an error message to `stderr` and exit with code `1`:
+If arguments are missing, or invalid numeric formats/unknown options are passed, `MyBunka` writes an error message to `stderr` and exits with code `1`:
 
 ```bash
 $ MyBunka
@@ -85,31 +93,29 @@ $ MyBunka invalid
 
 ## 📚 Documentation
 
-For more detailed documentation, please refer to the files in `docs/en/`:
+For complete specifications, architectural designs, and guides, refer to `docs/en/`:
 
-- [Specification](docs/en/SPEC.md) - Algorithm details and CLI argument specification.
-- [System Architecture](docs/en/ARCHITECTURE.md) - System design, technology stack, directory structure, and data flow.
-- [System Diagrams](docs/en/DIAGRAM.md) - Flowcharts and architecture diagrams.
-- [Development Instructions](docs/en/INSTRUCTIONS.md) - Coding style, naming conventions, error handling policies, and AI guidelines.
-- [Task Management & Roadmap](docs/en/TODO.md) - Done tasks, current tasks, and backlog.
-- [Performance & Footprints](docs/en/FOOTPRINTS.md) - Binary size and memory usage statistics.
-- [Testing Policy & Guide](docs/en/TESTING.md) - Automated test policies and verification procedures.
-- [Test Report](docs/en/TEST_REPORT.md) - Test cases and verification results.
-- [Release Procedures](docs/en/RELEASE.md) - Versioning and release guidelines.
-- [Contribution Guidelines](docs/en/CONTRIBUTING.md) - PR rules and commit conventions.
-- [Security Policy](docs/en/SECURITY.md) - Vulnerability reporting and support policies.
-- [Project Setup Template Guide](docs/en/PROJECT_TEMPLATE_GUIDE.md) - Standard configurations for editors, CI/CD, and Dependabot.
-- [Changelog](docs/en/CHANGELOG.md) - Detailed release history.
+- [Technical Specification (docs/en/SPEC.md)](docs/en/SPEC.md) - Algorithm details, arguments, and parsing specifications.
+- [System Architecture (docs/en/ARCHITECTURE.md)](docs/en/ARCHITECTURE.md) - System design, technology stack, directory layout, and data flow.
+- [System Diagrams (docs/en/DIAGRAM.md)](docs/en/DIAGRAM.md) - Mermaid execution flowcharts.
+- [AI Coding Instructions (docs/en/INSTRUCTIONS.md)](docs/en/INSTRUCTIONS.md) - Coding standards, error handling, and documentation synchronization rules.
+- [Task & Roadmap Management (docs/en/TODO.md)](docs/en/TODO.md) - Done items, active tasks, and backlog proposals.
+- [Performance & Footprints (docs/en/FOOTPRINTS.md)](docs/en/FOOTPRINTS.md) - Empirical binary size, memory usage, and execution timing metrics.
+- [Testing Policy & Guide (docs/en/TESTING.md)](docs/en/TESTING.md) - Automated testing policies and local verification steps.
+- [Test Verification Report (docs/en/TEST_REPORT.md)](docs/en/TEST_REPORT.md) - Test cases, empirical results, and CI setup.
+- [Release Procedures (docs/en/RELEASE.md)](docs/en/RELEASE.md) - Versioning and automated release procedures.
+- [Contribution Guidelines (docs/en/CONTRIBUTING.md)](docs/en/CONTRIBUTING.md) - PR rules and Conventional Commits format.
+- [Security Policy (docs/en/SECURITY.md)](docs/en/SECURITY.md) - Vulnerability disclosure and support matrix.
+- [Project Template Guide (docs/en/PROJECT_TEMPLATE_GUIDE.md)](docs/en/PROJECT_TEMPLATE_GUIDE.md) - Standard configurations for editors, CI/CD, and Dependabot.
+- [Changelog (docs/en/CHANGELOG.md)](docs/en/CHANGELOG.md) - Release history.
 
-## Development
+## 🛠️ Development & Automation
 
-This repository includes unified editor configurations and automated workflows:
+- **Editor Configuration**: Consistent styling via [.editorconfig](.editorconfig).
+- **CI (Continuous Integration)**: Automated builds and testing via [.github/workflows/ci.yml](.github/workflows/ci.yml).
+- **CD (Automated Release)**: Automatically detects `Cargo.toml` version increments on `main` push, creates Git tags, builds release binaries, and uploads zip archives to GitHub Releases ([.github/workflows/release.yml](.github/workflows/release.yml)).
+- **Dependabot**: Weekly automated PR checks for actions and dependencies ([.github/dependabot.yml](.github/dependabot.yml)).
 
-- **Editor Configurations**: [.editorconfig](.editorconfig) and [.vscode/settings.json](.vscode/settings.json) are provided to ensure consistent code styling.
-- **CI/CD**: Automatic testing is run on PRs/pushes via [.github/workflows/ci.yml](.github/workflows/ci.yml). Automatic release binaries (CLI version in a zip file) are created and uploaded to GitHub Releases when pushing a tag (`v*`) via [.github/workflows/release.yml](.github/workflows/release.yml).
-- **Dependabot**: Automatically checks for dependency updates weekly ([.github/dependabot.yml](.github/dependabot.yml)).
+## 📄 License
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
+This project is licensed under the MIT License - Copyright (c) 2026 tkshnkgwr. See the [LICENSE](LICENSE) file for details.

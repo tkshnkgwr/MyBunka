@@ -9,6 +9,18 @@
 
 ## [未リリース]
 
+## [1.0.1] - 2026-10-27
+
+### 変更 (Changed)
+- **バージョン出力の著作権・ライセンス情報拡充とドキュメント同期**:
+  - `src/cli.rs` でのバージョン表示に著作権表記および MIT ライセンス表記を追加したことに伴い、`SPEC.md`, `TEST_REPORT.md` 等の各ドキュメントを同期。
+- **ドキュメント全体の品質見直しと完全同期**:
+  - `README.md` および `README_JA.md` に使い方、オプション、実行例、ドキュメント一覧、開発自動化の記載を最新化して再構築。
+  - `docs/en/SPEC.md`, `docs/en/INSTRUCTIONS.md`, `docs/en/TEST_REPORT.md`, `docs/en/TESTING.md` を日本語版と完全同期。
+  - `docs/ja/TEST_REPORT.md` 内の旧GUI検証記録（TC-19等）の整理と注記化。
+  - `ARCHITECTURE.md` のディレクトリツリーに `.agents/skills/` を追加。
+  - リポジトリ内に存在しなかった `.vscode/settings.json` へのリンク切れを解消。
+
 ## [1.0.0] - 2026-09-02
 
 ### 変更 (Changed)
@@ -30,7 +42,7 @@
 - **引数解析の堅牢化とユニットテストの拡充**:
   - `src/cli.rs` に引数解析用の `parse_cli_args` 関数と CLI オプション検証の単体テストケースを追加。
 
-## [未リリース] - 2026-07-21
+## [0.4.7] - 2026-07-21
 
 ### 変更 (Changed)
 - **Cargo Features による共有ライブラリ依存の分離**:

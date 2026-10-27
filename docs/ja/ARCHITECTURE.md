@@ -36,7 +36,8 @@
 MyBunka/
 ├── .agents/
 │   ├── AGENTS.md               # AI向けの開発ガイドラインとルール
-│   └── INSTRUCTIONS.md         # AI向けコーディングスタイル指示書（規約）
+│   ├── INSTRUCTIONS.md         # AI向けコーディングスタイル指示書（規約）
+│   └── skills/                 # 特化型AIスキル定義 (git-commit, rust-verification等)
 ├── .github/
 │   └── workflows/
 │       ├── ci.yml              # Windows環境でのビルド・テストCI

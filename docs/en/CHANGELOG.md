@@ -8,6 +8,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-27
+
+### Changed
+- **Version output expansion & documentation synchronization**:
+  - Added copyright and MIT license information to `src/cli.rs` version output, synchronizing `SPEC.md`, `TEST_REPORT.md`, and other documentation.
+- **Comprehensive documentation review & synchronization**:
+  - Restored and expanded `README.md` and `README_JA.md` with usage, options, practical examples, document navigation, and CI/CD details.
+  - Fully synchronized `docs/en/SPEC.md`, `docs/en/INSTRUCTIONS.md`, `docs/en/TEST_REPORT.md`, and `docs/en/TESTING.md` with Japanese documentation.
+  - Clarified legacy GUI verification records in `TEST_REPORT.md`.
+  - Added `.agents/skills/` directory to `ARCHITECTURE.md` architecture tree.
+  - Fixed dead links to non-existent `.vscode/settings.json`.
+
 ## [1.0.0] - 2026-09-02
 
 ### Changed

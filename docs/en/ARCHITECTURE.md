@@ -32,7 +32,8 @@ This document describes the system architecture, structural design intents, tech
 MyBunka/
 ├── .agents/
 │   ├── AGENTS.md               # AI development guidelines & rules
-│   └── INSTRUCTIONS.md         # AI coding style instructions
+│   ├── INSTRUCTIONS.md         # AI coding style instructions
+│   └── skills/                 # Specialized AI skills (git-commit, rust-verification, etc.)
 ├── .github/
 │   └── workflows/
 │       ├── ci.yml              # CI workflow for Windows builds & testing

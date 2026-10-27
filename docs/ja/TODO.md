@@ -25,9 +25,12 @@
   - `-d`, `--max-den` による最大分母の上限指定。
   - `-t`, `--tolerance` による許容誤差のしきい値指定。
 
+- [x] CLI引数解析およびオプション検証の単体テストの記述 (`cli.rs`)。
+- [x] バージョン表示への著作権・ライセンス表記の追加。
+
 ### 1.3 プロジェクトインフラ
 
-- [x] `.editorconfig` および `.vscode/settings.json` によるエディタ設定の統一。
+- [x] `.editorconfig` によるエディタ設定の統一（LF、UTF-8、インデント規約）。
 - [x] GitHub Actions CI ワークフロー (`ci.yml`) による自動ビルド・テスト環境の構築.
 - [x] GitHub Actions CD ワークフロー (`release.yml`) による自動タグ付けおよび zip アーカイブ（CLI）の GitHub Releases への自動デプロイ。
 - [x] Dependabot による依存クレートの自動更新監視。

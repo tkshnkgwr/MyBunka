@@ -12,8 +12,10 @@ Current implementation status (Done), active tasks (In Progress), and roadmap pr
 - [x] Parsing support for percentage inputs (e.g. `10%` -> `0.1` -> `1/10`).
 - [x] CLI interface with options for max denominator (`-d`) and tolerance (`-t`).
 - [x] Comprehensive CLI argument parsing unit tests (`cli.rs`).
+- [x] Multi-line version output including copyright and MIT license details.
 - [x] Multi-language documentation structure (`docs/en/` & `docs/ja/`).
 - [x] Renamed project and CLI binary to `MyBunka` with full documentation and CI synchronization.
+- [x] Unified editor configuration via `.editorconfig`.
 
 ---
 

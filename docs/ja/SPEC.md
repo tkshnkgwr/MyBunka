@@ -18,7 +18,7 @@
   - ヘルプ表示時: `MyBunka --help` (または `-h`)
 - **標準出力 (stdout)**:
   - 数値変換時: 既約分数の形式 `<分子>/<分母>` （例: `1/7`, `1/10`）で出力されます。
-  - バージョン表示時: `MyBunka <バージョン番号>` （例: `MyBunka 1.0.0`）で出力されます。
+  - バージョン表示時: `MyBunka v<バージョン番号>\nCopyright (c) 2026 tkshnkgwr\nLicense: MIT` （例: `MyBunka v1.0.0`）の複数行形式で出力されます。
   - ヘルプ表示時: 使用方法、引数、オプション、使用例を含むヘルプメッセージが出力されます。
 - **標準エラー出力 (stderr)**: 実行失敗時、または引数が無効な場合にヘルプや警告を出力します。
 - **終了コード (Exit Codes)**:
@@ -78,8 +78,7 @@ $ MyBunka 0.142857 -d 1000 -t 1e-4
 
 プロジェクト全体のコード品質および書式を一貫させるため、以下の設定ファイルを適用しています。
 
-- **[.editorconfig](../../.editorconfig)**: 改行コードを `LF`、文字コードを `UTF-8 (BOMなし)`、インデント幅を `4`（Markdown/YAML等は `2`）に統一します。
-- **[.vscode/settings.json](../../.vscode/settings.json)**: VS Code 利用者向けに、保存時の自動整形（rustfmt）の有効化、インデントおよび文字コード設定を共有します。
+- **[.editorconfig](../../.editorconfig)**: 改行コードを `LF`、文字コードを `UTF-8 (BOMなし)`、インデント幅を `4`（Markdown/YAML等は `2`）に統一します。プロジェクト設定ガイドのテンプレート（[PROJECT_TEMPLATE_GUIDE.md](PROJECT_TEMPLATE_GUIDE.md)）にもエディタ共通設定を記載しています。
 
 ### 2.2 CI/CD および自動リリース仕様
 
