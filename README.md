@@ -14,7 +14,7 @@
 
 - **High Precision**: Computes the mathematically most optimal reduced fraction approximations via continued fraction expansion.
 - **Percentage Support**: Accepts standard decimals (e.g., `0.142857`) as well as percentages (e.g., `10%`, `"  -5.5 % "`).
-- **Ultra-lightweight & Fast**: Zero external dependencies (Rust standard library only), ~135 KB release binary size, and less than 2 MB memory footprint.
+- **Ultra-lightweight & Fast**: Zero external dependencies (Rust standard library only), ~140 KB release binary size, and less than 2 MB memory footprint.
 - **Configurable Parameters**: Customize maximum denominator (`--max-den`) and error tolerance (`--tolerance`).
 
 ## 🚀 Getting Started
@@ -73,7 +73,7 @@ $ MyBunka "  -5.5 % "
 
 # Version display
 $ MyBunka -v
-MyBunka v1.1.0
+MyBunka v1.1.1
 Copyright (c) 2026 tkshnkgwr
 License: GPL-3.0-or-later
 ```
@@ -84,7 +84,7 @@ If arguments are missing, or invalid numeric formats/unknown options are passed,
 
 ```bash
 $ MyBunka
-使用方法: MyBunka <小数点数> [オプション]
+使用方法: MyBunka <小数点数またはパーセント表記> [オプション]
 例) MyBunka 0.142857  ->  1/7
 
 $ MyBunka invalid

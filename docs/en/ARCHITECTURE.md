@@ -35,16 +35,23 @@ MyBunka/
 │   ├── INSTRUCTIONS.md         # AI coding style instructions
 │   └── skills/                 # Specialized AI skills (git-commit, rust-verification, etc.)
 ├── .github/
+│   ├── dependabot.yml          # Weekly automated dependency & Actions updates
 │   └── workflows/
 │       ├── ci.yml              # CI workflow for Windows builds & testing
 │       └── release.yml         # CD workflow for release automation
 ├── docs/
 │   ├── en/                     # English documentation
 │   │   ├── ARCHITECTURE.md     # This document
+│   │   ├── CHANGELOG.md        # Release history
+│   │   ├── CONTRIBUTING.md     # Contribution guidelines
 │   │   ├── DIAGRAM.md          # Flowcharts & diagrams
 │   │   ├── FOOTPRINTS.md       # Binary footprint & performance metrics
+│   │   ├── INSTRUCTIONS.md     # AI coding instructions
 │   │   ├── PROJECT_TEMPLATE_GUIDE.md # Template setup guide
+│   │   ├── RELEASE.md          # Release procedures
+│   │   ├── SECURITY.md         # Security policy
 │   │   ├── SPEC.md             # Functional specifications
+│   │   ├── TESTING.md          # Testing policy & guide
 │   │   ├── TEST_REPORT.md      # Test results report
 │   │   └── TODO.md             # Task roadmap
 │   ├── ja/                     # Japanese documentation
@@ -54,10 +61,16 @@ MyBunka/
 │   ├── main.rs                 # CLI entry point
 │   ├── lib.rs                  # Core rational algorithm & parsing
 │   └── cli.rs                  # CLI argument parsing & I/O
-├── Cargo.toml                  # Dependencies & release profiles
+├── .editorconfig               # Shared editor formatting configuration
+├── Cargo.lock                  # Dependency lockfile
+├── Cargo.toml                  # Package metadata & release profiles
+├── CHANGELOG.md                # Changelog redirect page
+├── CLAUDE.md                   # Claude workspace rules
+├── GEMINI.md                   # Gemini workspace rules
+├── LICENSE                     # GPL-3.0-or-later license text
 ├── README.md                   # English overview guide
 ├── README_JA.md                # Japanese overview guide
-└── CHANGELOG.md                # Changelog redirect page
+└── RULES.md                    # Shared absolute development rules
 ```
 
 ---

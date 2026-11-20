@@ -28,7 +28,8 @@ where
     let args_vec: Vec<String> = args.into_iter().map(|s| s.as_ref().to_owned()).collect();
     if args_vec.len() < 2 {
         return Err(
-            "使用方法: MyBunka <小数点数> [オプション]\n例) MyBunka 0.142857  ->  1/7".to_string(),
+            "使用方法: MyBunka <小数点数またはパーセント表記> [オプション]\n例) MyBunka 0.142857  ->  1/7"
+                .to_string(),
         );
     }
 
@@ -79,8 +80,8 @@ where
             }
             "--tolerance" | "-t" => {
                 if i + 1 < args_vec.len() {
-                    tolerance = match args_vec[i + 1].parse() {
-                        Ok(n) if n > 0.0 => n,
+                    tolerance = match args_vec[i + 1].parse::<f64>() {
+                        Ok(n) if n.is_finite() && n > 0.0 => n,
                         _ => {
                             return Err(format!(
                                 "エラー: 無効な許容誤差指定です '{}'",
@@ -153,19 +154,20 @@ fn print_help() {
     println!("MyBunka - 小数点数から分数への近似変換ツール");
     println!();
     println!("使用方法:");
-    println!("    MyBunka <小数点数> [オプション]");
+    println!("    MyBunka <小数点数またはパーセント表記> [オプション]");
     println!();
     println!("引数:");
-    println!("    <小数点数>        分数に近似変換したい浮動小数点数");
+    println!("    <小数点数またはパーセント表記>  分数に近似変換したい数値（例: 0.142857, 10%）");
     println!();
     println!("オプション:");
-    println!("    -d, --max-den <値>  近似計算に使用する最大分母 (デフォルト: 100,000)");
+    println!("    -d, --max-den <値>   近似計算に使用する最大分母 (デフォルト: 100,000)");
     println!("    -t, --tolerance <値> 近似計算の許容誤差 (デフォルト: 1e-6)");
-    println!("    -h, --help        このヘルプメッセージを表示して終了します");
-    println!("    -v, -V, --version バージョン情報を表示して終了します");
+    println!("    -h, --help           このヘルプメッセージを表示して終了します");
+    println!("    -v, -V, --version    バージョン情報を表示して終了します");
     println!();
     println!("使用例:");
     println!("    MyBunka 0.142857   -> 1/7");
+    println!("    MyBunka 10%        -> 1/10");
     println!("    MyBunka 3.14159265 -d 1000 -> 355/113");
 }
 
@@ -206,6 +208,12 @@ mod tests {
     fn test_parse_cli_args_invalid() {
         assert!(parse_cli_args(vec!["MyBunka"]).is_err());
         assert!(parse_cli_args(vec!["MyBunka", "0.5", "-d"]).is_err());
+        assert!(parse_cli_args(vec!["MyBunka", "0.5", "-d", "0"]).is_err());
+        assert!(parse_cli_args(vec!["MyBunka", "0.5", "-t"]).is_err());
+        assert!(parse_cli_args(vec!["MyBunka", "0.5", "-t", "0"]).is_err());
+        assert!(parse_cli_args(vec!["MyBunka", "0.5", "-t", "-1e-4"]).is_err());
+        assert!(parse_cli_args(vec!["MyBunka", "0.5", "-t", "inf"]).is_err());
+        assert!(parse_cli_args(vec!["MyBunka", "0.5", "-t", "NaN"]).is_err());
         assert!(parse_cli_args(vec!["MyBunka", "0.5", "--unknown"]).is_err());
     }
 }

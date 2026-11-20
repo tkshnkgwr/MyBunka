@@ -9,7 +9,7 @@ This document records the test execution environment, test cases, and empirical 
 ## 1. Test Environment
 
 - **Operating System**: Windows 11 Home x64
-- **Rust Version**: `rustc 1.96.0` (edition 2024)
+- **Rust Version**: `rustc 1.100.0` (edition 2024)
 - **Shell**: PowerShell 7 (`pwsh`)
 - **Target Profile**: Release Build (`target/release/MyBunka.exe`)
 
@@ -26,7 +26,7 @@ This document records the test execution environment, test cases, and empirical 
 | TC-03   | `3.14159265`                    | `355/113`        | `355/113`        | **PASS** | Standard Milü approximation for $\pi$                                   |
 | TC-04   | `0.0`                           | `0/1`            | `0/1`            | **PASS** | Boundary case for zero input                                            |
 | TC-05   | `-0.5`                          | `-1/2`           | `-1/2`           | **PASS** | Negative decimal input handling                                         |
-| TC-08   | `--version`                     | `MyBunka v1.0.0` | `MyBunka v1.0.0` | **PASS** | Version, copyright, and license display (Exit Code 0)                   |
+| TC-08   | `--version`                     | `MyBunka v1.1.1` | `MyBunka v1.1.1` | **PASS** | Version, copyright, and license display (Exit Code 0)                   |
 | TC-09   | `--help`                        | Detailed Help    | Detailed Help    | **PASS** | Help message display (Exit Code 0)                                      |
 | TC-10   | `3.14159265 -d 100`             | `22/7`           | `22/7`           | **PASS** | Max denominator constrained to 100 yields Archimedes approximation $22/7$ |
 | TC-11   | `0.142857 -t 1e-10 -d 10000000` | `142857/1000000` | `142857/1000000` | **PASS** | Tight tolerance and expanded denominator preserve literal decimal value |
@@ -39,26 +39,27 @@ This document records the test execution environment, test cases, and empirical 
 PS MyBunka> target/release/MyBunka.exe 0.142857
 1/7
 PS MyBunka> target/release/MyBunka.exe --version
-MyBunka v1.1.0
+MyBunka v1.1.1
 Copyright (c) 2026 tkshnkgwr
 License: GPL-3.0-or-later
 PS MyBunka> target/release/MyBunka.exe --help
 MyBunka - 小数点数から分数への近似変換ツール
 
 使用方法:
-    MyBunka <小数点数> [オプション]
+    MyBunka <小数点数またはパーセント表記> [オプション]
 
 引数:
-    <小数点数>        分数に近似変換したい浮動小数点数
+    <小数点数またはパーセント表記>  分数に近似変換したい数値（例: 0.142857, 10%）
 
 オプション:
-    -d, --max-den <値>  近似計算に使用する最大分母 (デフォルト: 100,000)
+    -d, --max-den <値>   近似計算に使用する最大分母 (デフォルト: 100,000)
     -t, --tolerance <値> 近似計算の許容誤差 (デフォルト: 1e-6)
-    -h, --help        このヘルプメッセージを表示して終了します
-    -v, -V, --version バージョン情報を表示して終了します
+    -h, --help           このヘルプメッセージを表示して終了します
+    -v, -V, --version    バージョン情報を表示して終了します
 
 使用例:
     MyBunka 0.142857   -> 1/7
+    MyBunka 10%        -> 1/10
     MyBunka 3.14159265 -d 1000 -> 355/113
 ```
 
@@ -109,25 +110,26 @@ PS MyBunka> cargo test
 ### Result Summary
 
 ```text
-running 8 tests
+running 9 tests
 test cli::tests::test_parse_cli_args_basic ... ok
 test cli::tests::test_parse_cli_args_invalid ... ok
 test cli::tests::test_parse_cli_args_options ... ok
 test cli::tests::test_parse_cli_args_help_version ... ok
+test tests::test_approximate_fraction_edge_cases ... ok
 test tests::test_approximate_fraction_negative ... ok
 test tests::test_approximate_fraction_positive ... ok
 test tests::test_approximate_fraction_zero ... ok
 test tests::test_parse_decimal_or_percent ... ok
 
-test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 
    Doc-tests mybunka
 
 running 2 tests
 test src/lib.rs - approximate_fraction (line 29) ... ok
-test src/lib.rs - parse_decimal_or_percent (line 111) ... ok
+test src/lib.rs - parse_decimal_or_percent (line 125) ... ok
 
-test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
 ```
 
-All 8 unit tests and 2 doctests pass cleanly with zero warnings.
+All 9 unit tests and 2 doctests pass cleanly with zero warnings.

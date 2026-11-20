@@ -9,7 +9,7 @@
 ## 1. テスト実行環境
 
 - **オペレーティングシステム**: Windows 11 Home x64
-- **Rust バージョン**: `rustc 1.96.0` (edition 2024)
+- **Rust バージョン**: `rustc 1.100.0` (edition 2024)
 - **シェル**: PowerShell 7 (`pwsh`)
 - **テスト対象プロファイル**: リリースビルド (`target/release/MyBunka.exe`)
 
@@ -28,7 +28,7 @@
 | TC-03    | `3.14159265`                    | `355/113`        | `355/113`        | **PASS**   | 円周率 $\pi$ の標準的な近似分数（密率）                                    |
 | TC-04    | `0.0`                           | `0/1`            | `0/1`            | **PASS**   | ゼロ値に対する境界値処理                                                   |
 | TC-05    | `-0.5`                          | `-1/2`           | `-1/2`           | **PASS**   | 負の小数点数に対する処理                                                   |
-| TC-08    | `--version`                     | `MyBunka v1.0.0` | `MyBunka v1.0.0` | **PASS**   | バージョン情報表示オプション（Exit Code 0）                                |
+| TC-08    | `--version`                     | `MyBunka v1.1.1` | `MyBunka v1.1.1` | **PASS**   | バージョン・著作権・ライセンス表示オプション（Exit Code 0）                |
 | TC-09    | `--help`                        | 詳細ヘルプ表示   | 詳細ヘルプ表示   | **PASS**   | ヘルプ表示オプション（Exit Code 0）                                        |
 | TC-10    | `3.14159265 -d 100`             | `22/7`           | `22/7`           | **PASS**   | 最大分母を100に制限したため、$\pi$ の近似として $22/7$ が採用される        |
 | TC-11    | `0.142857 -t 1e-10 -d 10000000` | `142857/1000000` | `142857/1000000` | **PASS**   | 許容誤差を非常に小さくし最大分母を拡張したことで、元の小数通りの分数に変換 |
@@ -41,26 +41,27 @@
 PS MyBunka> target/release/MyBunka.exe 0.142857
 1/7
 PS MyBunka> target/release/MyBunka.exe --version
-MyBunka v1.1.0
+MyBunka v1.1.1
 Copyright (c) 2026 tkshnkgwr
 License: GPL-3.0-or-later
 PS MyBunka> target/release/MyBunka.exe --help
 MyBunka - 小数点数から分数への近似変換ツール
 
 使用方法:
-    MyBunka <小数点数> [オプション]
+    MyBunka <小数点数またはパーセント表記> [オプション]
 
 引数:
-    <小数点数>        分数に近似変換したい浮動小数点数
+    <小数点数またはパーセント表記>  分数に近似変換したい数値（例: 0.142857, 10%）
 
 オプション:
-    -d, --max-den <値>  近似計算に使用する最大分母 (デフォルト: 100,000)
+    -d, --max-den <値>   近似計算に使用する最大分母 (デフォルト: 100,000)
     -t, --tolerance <値> 近似計算の許容誤差 (デフォルト: 1e-6)
-    -h, --help        このヘルプメッセージを表示して終了します
-    -v, -V, --version バージョン情報を表示して終了します
+    -h, --help           このヘルプメッセージを表示して終了します
+    -v, -V, --version    バージョン情報を表示して終了します
 
 使用例:
     MyBunka 0.142857   -> 1/7
+    MyBunka 10%        -> 1/10
     MyBunka 3.14159265 -d 1000 -> 355/113
 ```
 
@@ -77,7 +78,7 @@ MyBunka - 小数点数から分数への近似変換ツール
   - 終了コード `1` で終了すること。
   - 標準エラー出力（`stderr`）に以下の使用方法ヘルプが出力されること：
     ```text
-    使用方法: MyBunka <小数点数> [オプション]
+    使用方法: MyBunka <小数点数またはパーセント表記> [オプション]
     例) MyBunka 0.142857  ->  1/7
     ```
 - **実行結果**: 期待通りの仕様案内が stderr に出力され、終了コード 1 で終了。
@@ -171,17 +172,26 @@ PS MyBunka> cargo test
 ### 実行結果 (MyBunka)
 
 ```powershell
-running 8 tests
+running 9 tests
 test cli::tests::test_parse_cli_args_basic ... ok
 test cli::tests::test_parse_cli_args_invalid ... ok
 test cli::tests::test_parse_cli_args_options ... ok
 test cli::tests::test_parse_cli_args_help_version ... ok
+test tests::test_approximate_fraction_edge_cases ... ok
 test tests::test_approximate_fraction_negative ... ok
 test tests::test_approximate_fraction_positive ... ok
 test tests::test_approximate_fraction_zero ... ok
 test tests::test_parse_decimal_or_percent ... ok
 
-test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests mybunka
+
+running 2 tests
+test src\lib.rs - approximate_fraction (line 29) ... ok
+test src\lib.rs - parse_decimal_or_percent (line 125) ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
 ```
 
 すべての単体テストケースにおいて期待通りの値が計算され、**PASS (ok)** することを確認済みです。

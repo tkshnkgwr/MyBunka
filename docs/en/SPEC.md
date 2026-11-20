@@ -18,7 +18,7 @@ This document describes the software requirements, interface definitions, and de
   - Help display: `MyBunka --help` (or `-h`)
 - **Standard Output (stdout)**:
   - Number conversion: Reduced fraction formatted as `<numerator>/<denominator>` (e.g., `1/7`, `1/10`).
-  - Version display: Multi-line string in the format `MyBunka v<version>\nCopyright (c) 2026 tkshnkgwr\nLicense: GPL-3.0-or-later` (e.g., `MyBunka v1.1.0`).
+  - Version display: Multi-line string in the format `MyBunka v<version>\nCopyright (c) 2026 tkshnkgwr\nLicense: GPL-3.0-or-later` (e.g., `MyBunka v1.1.1`).
   - Help display: Usage instructions, arguments, options, and practical examples.
 - **Standard Error (stderr)**: Outputs error messages and usage hints upon execution failure or invalid arguments.
 - **Exit Codes**:
@@ -29,10 +29,10 @@ This document describes the software requirements, interface definitions, and de
 
 The following parameter options can be specified after the input value to control the fraction approximation algorithm:
 
-| Long Flag     | Short Flag | Type                     | Default   | Description                              |
-| :------------ | :--------- | :----------------------- | :-------- | :--------------------------------------- |
-| `--max-den`   | `-d`       | Positive Integer (`u64`) | `100,000` | Maximum denominator limit.               |
-| `--tolerance` | `-t`       | Positive Float (`f64`)   | `1e-6`    | Approximation error tolerance threshold. |
+| Long Flag     | Short Flag | Type                            | Default   | Description                              |
+| :------------ | :--------- | :------------------------------ | :-------- | :--------------------------------------- |
+| `--max-den`   | `-d`       | Positive Integer (`u64`)        | `100,000` | Maximum denominator limit.               |
+| `--tolerance` | `-t`       | Positive Finite Float (`f64`)   | `1e-6`    | Approximation error tolerance threshold. |
 
 #### Command Example
 
@@ -52,7 +52,9 @@ To approximate a real number $x$ into a fraction $h/k$, `MyBunka` employs the **
      $$h_n = a_n h_{n-1} + h_{n-2}$$
      $$k_n = a_n k_{n-1} + k_{n-2}$$
      Initial state: $(h_{-1}, k_{-1}) = (1, 0)$ and $(h_{-2}, k_{-2}) = (0, 1)$.
-3. **Termination Criteria**:
+3. **Termination Criteria & Safety Guards**:
+   - If the input is non-finite (`NaN`, `±inf`), return `(0, 1, NaN)` safely; if `max_denominator == 0`, return `(0, 1, |x|)`.
+   - Checked arithmetic (`checked_mul`, `checked_add`) guards the recurrence relations against integer overflow, safely terminating and adopting the previous convergent $h_{n-1}/k_{n-1}$ without panicking.
    - If denominator $k_n > max\_denominator$, terminate loop and adopt the previous convergent $h_{n-1}/k_{n-1}$.
    - If absolute error $|x - h_n/k_n| \le tolerance$, terminate loop immediately.
    - If the fractional part of residual ($r_n - a_n$) is nearly zero ($< 10^{-11}$), terminate loop.
@@ -68,7 +70,7 @@ In addition to standard decimal notation (e.g., `0.142857`), `MyBunka` parses pe
 3. **Parsing & Division**:
    - If ending with `%`, strip the `%` symbol, trim surrounding spaces, parse the remainder as a floating-point number (`f64`), and divide by `100.0` (e.g., `10%` -> `0.1`, `  -5.5 % ` -> `-0.055`).
    - If not ending with `%`, parse directly as a floating-point number.
-4. **Error Handling**: Non-numeric or invalid formatting (e.g., `abc` or `10%%`) produces an error and terminates execution with exit code `1`.
+4. **Finiteness Check & Error Handling**: Non-finite numbers (`NaN`, `inf`, `-inf`) and invalid formatting (e.g., `abc` or `10%%`) produce an error and terminate execution with exit code `1`.
 
 ---
 

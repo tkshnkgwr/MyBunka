@@ -39,6 +39,7 @@ MyBunka/
 │   ├── INSTRUCTIONS.md         # AI向けコーディングスタイル指示書（規約）
 │   └── skills/                 # 特化型AIスキル定義 (git-commit, rust-verification等)
 ├── .github/
+│   ├── dependabot.yml          # 依存関係・Actionsの週次自動更新設定
 │   └── workflows/
 │       ├── ci.yml              # Windows環境でのビルド・テストCI
 │       └── release.yml         # バージョン検知と自動リリースCD
@@ -48,21 +49,33 @@ MyBunka/
 │   │   └── ...
 │   ├── ja/                     # 日本語版ドキュメント
 │   │   ├── ARCHITECTURE.md     # 本書（システム設計書）
+│   │   ├── CHANGELOG.md        # 変更履歴
+│   │   ├── CONTRIBUTING.md     # 貢献ガイドライン
 │   │   ├── DIAGRAM.md          # 処理フロー・構成図 (Mermaid)
 │   │   ├── FOOTPRINTS.md       # バイナリサイズ・性能実測値
+│   │   ├── INSTRUCTIONS.md     # AI向けコーディング規約
 │   │   ├── PROJECT_TEMPLATE_GUIDE.md # プロジェクト初期設定ガイド
+│   │   ├── RELEASE.md          # リリース手順書
+│   │   ├── SECURITY.md         # セキュリティポリシー
 │   │   ├── SPEC.md             # 要件およびアルゴリズム仕様書
+│   │   ├── TESTING.md          # テスト方針・ガイド
 │   │   ├── TEST_REPORT.md      # 単体テスト・手動テスト検証報告書
 │   │   └── TODO.md             # タスク管理
-│   └── images/                 # スクリーンショット等のアセット
+│   └── images/                 # 画像アセット
 ├── src/
 │   ├── main.rs                 # エントリーポイント
 │   ├── lib.rs                  # コアアルゴリズムと共通パース処理
 │   └── cli.rs                  # CLI引数解析と標準入出力処理
+├── .editorconfig               # エディタ共通書式設定
+├── Cargo.lock                  # 依存関係ロックファイル
 ├── Cargo.toml                  # 依存関係とリリースプロファイル設定
+├── CHANGELOG.md                # 変更履歴案内リンク
+├── CLAUDE.md                   # Claude向けワークスペースルール
+├── GEMINI.md                   # Gemini向けワークスペースルール
+├── LICENSE                     # GPL-3.0-or-later ライセンス本文
 ├── README.md                   # 英語版 概要ガイド
 ├── README_JA.md                # 日本語版 概要ガイド
-└── CHANGELOG.md                # 変更履歴案内リンク
+└── RULES.md                    # 開発共通絶対遵守ルール
 ```
 
 ### ディレクトリ設計の意図

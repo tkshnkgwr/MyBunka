@@ -8,6 +8,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-11-20
+
+### Fixed
+- **Safety Hardening for Non-Finite Values, Edge Cases, and Overflows (`src/lib.rs`, `src/cli.rs`)**:
+  - Updated `parse_decimal_or_percent` to reject non-finite inputs (`NaN`, `inf`, `-inf`, `inf%`).
+  - Added finiteness validation for `--tolerance` (`-t`) to reject non-finite values such as `inf` or `NaN`.
+  - Added safety guards in `approximate_fraction` for non-finite values, `max_denominator == 0`, and checked arithmetic (`checked_mul` / `checked_add`) to prevent integer overflow panics.
+  - Removed redundant residual zero check in `approximate_fraction`.
+- **CLI Help & Documentation Synchronization**:
+  - Synchronized CLI usage/help messages with percentage notation support.
+  - Updated `DIAGRAM.md` execution flow to match actual argument and value parsing order.
+  - Updated and synchronized `SECURITY.md` (`1.1.x`), `TEST_REPORT.md` (`v1.1.0` / `rustc 1.100.0` / 9 unit tests + 2 doctests), `FOOTPRINTS.md` (`rustc 1.100.0`, 143,872 bytes), `ARCHITECTURE.md`, `INSTRUCTIONS.md`, `TODO.md`, `RELEASE.md`, `README.md`, and `README_JA.md`.
+
 ## [1.1.0] - 2026-10-27
 
 ### Changed
@@ -51,7 +64,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **CLI Argument Parsing & Test Expansion**:
   - Refactored `src/cli.rs` with `parse_cli_args` helper and comprehensive unit tests.
 
-## [Unreleased] - 2026-07-21
+## [0.4.7] - 2026-07-21
 
 ### Changed
 - **Separation of shared library dependency via Cargo Features**:

@@ -23,12 +23,7 @@ graph TD
     CheckVersion -- Yes --> PrintVersion[Output 'MyBunka version' to stdout]
     PrintVersion --> ExitSuccess
     
-    CheckVersion -- No --> ParseVal{Parse Arg 1<br>(f64 or % notation)}
-    
-    ParseVal -- Failed --> PrintParseError[Output invalid decimal/percent error to stderr]
-    PrintParseError --> ExitFail
-    
-    ParseVal -- Success val --> InitParams["Default values:<br>max_den = 100,000<br>tolerance = 1e-6"]
+    CheckVersion -- No --> InitParams["Default values:<br>max_den = 100,000<br>tolerance = 1e-6"]
     
     InitParams --> LoopArgs{Loop remaining args<br>i = 2 .. args.len()}
     
@@ -40,14 +35,19 @@ graph TD
     ParseMaxDen -- Failed --> OptError[Output option error to stderr]
     OptError --> ExitFail
     
-    CheckOpt -- -t / --tolerance --> ParseTol{Parse next arg as positive float}
+    CheckOpt -- -t / --tolerance --> ParseTol{Parse next arg as positive finite float}
     ParseTol -- Success --> UpdateTol[Update tolerance, i += 2]
     UpdateTol --> LoopArgs
     ParseTol -- Failed --> OptError
     
     CheckOpt -- Other --> OptError
     
-    LoopArgs -- Done --> InitAlgo[Initialize: h1, h2, k1, k2, r, a, step = 0]
+    LoopArgs -- Done --> ParseVal{Parse Arg 1<br>(finite f64 or % notation)}
+    
+    ParseVal -- Failed --> PrintParseError[Output invalid decimal/percent error to stderr]
+    PrintParseError --> ExitFail
+    
+    ParseVal -- Success val --> InitAlgo[Initialize: h1, h2, k1, k2, r, a, step = 0]
     
     InitAlgo --> LoopCF{Steps <= 50?}
     

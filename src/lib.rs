@@ -33,14 +33,26 @@ pub mod cli;
 /// assert_eq!(den, 7);
 /// ```
 pub fn approximate_fraction(value: f64, max_denominator: u64, tolerance: f64) -> (i64, u64, f64) {
-    // 0の場合は 0/1 を即座に返す
+    // 非有限数（NaN / ±∞）または最大分母0の場合は安全にフォールバック
+    if !value.is_finite() {
+        return (0, 1, f64::NAN);
+    }
     if value == 0.0 {
         return (0, 1, 0.0);
+    }
+    if max_denominator == 0 {
+        return (0, 1, value.abs());
     }
 
     // 符号を判定し、絶対値で近似計算を進める
     let sign = if value < 0.0 { -1 } else { 1 };
     let target = value.abs();
+
+    // i64 の表現範囲を超える極大値はオーバーフロー防止のため安全に丸める
+    if target >= i64::MAX as f64 {
+        let clamped = i64::MAX * sign;
+        return (clamped, 1, (value - clamped as f64).abs());
+    }
 
     // 近似分数 (h_n / k_n) を算出するための漸化式の初期値設定
     // h1 = h_{n-1}, h2 = h_{n-2}
@@ -55,11 +67,12 @@ pub fn approximate_fraction(value: f64, max_denominator: u64, tolerance: f64) ->
     let mut a = r.floor() as i64;
     let mut step = 0;
 
-    loop {
-        // 漸化式: h_n = a_n * h_{n-1} + h_{n-2}, k_n = a_n * k_{n-1} + k_{n-2}
-        let h = a * h1 + h2;
-        let k = (a as u64) * k1 + k2;
-
+    // 漸化式: h_n = a_n * h_{n-1} + h_{n-2}, k_n = a_n * k_{n-1} + k_{n-2}
+    // オーバーフロー時は手前の近似値 (h1/k1) を採用して安全に終了する
+    while let (Some(h), Some(k)) = (
+        a.checked_mul(h1).and_then(|v| v.checked_add(h2)),
+        (a as u64).checked_mul(k1).and_then(|v| v.checked_add(k2)),
+    ) {
         // 計算した分母が最大分母制限を超えた場合は、手前の近似値 (h1/k1) を採用するためループ終了
         if k > max_denominator {
             break;
@@ -76,16 +89,16 @@ pub fn approximate_fraction(value: f64, max_denominator: u64, tolerance: f64) ->
         let error = (value - approx_value).abs();
 
         // 誤差が許容しきい値以下、または残差の小数部分がほぼゼロ（1e-11未満）になった場合は終了
-        if error <= tolerance || (r - a as f64).abs() < 1e-11 {
+        let diff = r - a as f64;
+        if (tolerance.is_finite() && error <= tolerance) || diff.abs() < 1e-11 {
             break;
         }
 
-        // 残差の小数部分を取り出し、次の連分数係数を求めるための逆数を計算
-        let diff = r - a as f64;
-        if diff.abs() < 1e-11 {
+        // 残差の小数部分から次の連分数係数を求めるための逆数を計算
+        r = 1.0 / diff;
+        if !r.is_finite() || r >= i64::MAX as f64 {
             break;
         }
-        r = 1.0 / diff;
         a = r.floor() as i64;
 
         // 異常な無限ループを防止するため、最大50ステップで制限
@@ -105,6 +118,7 @@ pub fn approximate_fraction(value: f64, max_denominator: u64, tolerance: f64) ->
 /// 末尾に '%' が存在する場合、そのパーセント記号を取り除いて浮動小数点数としてパースし、
 /// その値を 100.0 で割った値を返します。
 /// 前後の空白、またはパーセント記号の前の空白はトリムされます。
+/// `NaN` や `inf` などの非有限数はエラーとして拒否します。
 ///
 /// # 例
 ///
@@ -115,13 +129,19 @@ pub fn approximate_fraction(value: f64, max_denominator: u64, tolerance: f64) ->
 /// ```
 pub fn parse_decimal_or_percent(s: &str) -> Result<f64, std::num::ParseFloatError> {
     let trimmed = s.trim();
-    if let Some(stripped) = trimmed.strip_suffix('%') {
+    let parsed: f64 = if let Some(stripped) = trimmed.strip_suffix('%') {
         let val_part = stripped.trim();
         let val: f64 = val_part.parse()?;
-        Ok(val / 100.0)
+        val / 100.0
     } else {
-        trimmed.parse()
+        trimmed.parse()?
+    };
+
+    if !parsed.is_finite() {
+        return "".parse::<f64>();
     }
+
+    Ok(parsed)
 }
 
 #[cfg(test)]
@@ -159,11 +179,40 @@ mod tests {
     }
 
     #[test]
+    fn test_approximate_fraction_edge_cases() {
+        // 非有限数の安全なフォールバック
+        let (num, den, err) = approximate_fraction(f64::NAN, 100_000, 1e-6);
+        assert_eq!((num, den), (0, 1));
+        assert!(err.is_nan());
+
+        let (num, den, err) = approximate_fraction(f64::INFINITY, 100_000, 1e-6);
+        assert_eq!((num, den), (0, 1));
+        assert!(err.is_nan());
+
+        // 最大分母0のガード
+        let (num, den, _) = approximate_fraction(0.5, 0, 1e-6);
+        assert_eq!((num, den), (0, 1));
+
+        // オーバーフローを起こさずに安全に計算できること
+        let (num, den, _) = approximate_fraction(1e18, 100_000, 1e-6);
+        assert_eq!(num, 1_000_000_000_000_000_000);
+        assert_eq!(den, 1);
+
+        let (num, den, _) = approximate_fraction(1e20, 100_000, 1e-6);
+        assert_eq!(num, i64::MAX);
+        assert_eq!(den, 1);
+    }
+
+    #[test]
     fn test_parse_decimal_or_percent() {
         assert_eq!(parse_decimal_or_percent("0.142857").unwrap(), 0.142857);
         assert_eq!(parse_decimal_or_percent("10%").unwrap(), 0.1);
         assert_eq!(parse_decimal_or_percent("  -5.5 % ").unwrap(), -0.055);
         assert!(parse_decimal_or_percent("abc").is_err());
         assert!(parse_decimal_or_percent("10%%").is_err());
+        assert!(parse_decimal_or_percent("NaN").is_err());
+        assert!(parse_decimal_or_percent("inf").is_err());
+        assert!(parse_decimal_or_percent("-inf").is_err());
+        assert!(parse_decimal_or_percent("inf%").is_err());
     }
 }

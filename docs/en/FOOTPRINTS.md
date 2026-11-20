@@ -8,11 +8,11 @@ This document records empirical measurement data regarding binary file size, mem
 
 ## 1. Overview of Metrics
 
-Metrics measured on Windows 11 x64 using Rust 1.96.0 (`x86_64-pc-windows-msvc` target).
+Metrics measured on Windows 11 x64 using Rust 1.100.0 (`x86_64-pc-windows-msvc` target).
 
 ### 1.1 Binary File Size
 
-- **CLI Version File Size**: `138,752 Bytes` (~135.5 KB)
+- **CLI Version File Size**: `143,872 Bytes` (~140.5 KB)
 - **Evaluation**: The CLI version is ultra-compact with zero external dependencies, containing only pure rational logic and argument parsing.
 
 ### 1.2 Memory Usage (RAM)
@@ -22,7 +22,7 @@ Metrics measured on Windows 11 x64 using Rust 1.96.0 (`x86_64-pc-windows-msvc` t
 
 ### 1.3 Execution Time
 
-- **Startup & Calculation Time**: ~20 ms (measured via PowerShell `Measure-Command`).
+- **Startup & Calculation Time**: ~38 ms (measured via PowerShell `Measure-Command`).
 - **Algorithm Iteration Cycles**: Max 50 steps (typically converges within 3 to 10 cycles for standard decimals).
 
 ---

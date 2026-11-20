@@ -25,12 +25,7 @@ graph TD
     CheckVersion -- はい --> PrintVersion[stdout に 'MyBunka バージョン' を出力]
     PrintVersion --> ExitSuccess
     
-    CheckVersion -- いいえ --> ParseVal{第1引数をパース<br>(f64 または % 表記)}
-    
-    ParseVal -- 失敗 --> PrintParseError[stderr に '無効な数値・パーセント表記' エラーを出力]
-    PrintParseError --> ExitFail
-    
-    ParseVal -- 成功 val --> InitParams["デフォルト値設定:<br>max_den = 100,000<br>tolerance = 1e-6"]
+    CheckVersion -- いいえ --> InitParams["デフォルト値設定:<br>max_den = 100,000<br>tolerance = 1e-6"]
     
     InitParams --> LoopArgs{残りの引数ループ<br>i = 2 .. args.len()}
     
@@ -42,14 +37,19 @@ graph TD
     ParseMaxDen -- 失敗 --> OptError[stderr にオプションエラー出力]
     OptError --> ExitFail
     
-    CheckOpt -- -t / --tolerance --> ParseTol{次の引数値を正の数としてパース}
+    CheckOpt -- -t / --tolerance --> ParseTol{次の引数値を正の有限数としてパース}
     ParseTol -- 成功 --> UpdateTol[tolerance を更新, i += 2]
     UpdateTol --> LoopArgs
     ParseTol -- 失敗 --> OptError
     
     CheckOpt -- その他 --> OptError
     
-    LoopArgs -- ループ完了 --> InitAlgo[初期化: h1, h2, k1, k2, r, a, step = 0]
+    LoopArgs -- ループ完了 --> ParseVal{第1引数をパース<br>(有限 f64 または % 表記)}
+    
+    ParseVal -- 失敗 --> PrintParseError[stderr に '無効な数値・パーセント表記' エラーを出力]
+    PrintParseError --> ExitFail
+    
+    ParseVal -- 成功 val --> InitAlgo[初期化: h1, h2, k1, k2, r, a, step = 0]
     
     InitAlgo --> LoopCF{ステップ数 <= 50?}
     

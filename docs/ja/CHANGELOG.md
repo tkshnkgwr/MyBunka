@@ -9,6 +9,19 @@
 
 ## [未リリース]
 
+## [1.1.1] - 2026-11-20
+
+### 修正 (Fixed)
+- **非有限数・境界値・オーバーフローに対する安全性強化 (`src/lib.rs`, `src/cli.rs`)**:
+  - `parse_decimal_or_percent` が `NaN`, `inf`, `-inf`, `inf%` などの非有限数をエラーとして拒否するように修正。
+  - `--tolerance` (`-t`) オプションで `inf` や `NaN` などの非有限数が許容されないよう有限性チェックを追加。
+  - `approximate_fraction` において、非有限数・`max_denominator == 0` の安全ガードと、`checked_mul` / `checked_add` による整数オーバーフロー防止を実装。
+  - `approximate_fraction` 内の冗長な残差ゼロ判定を整理。
+- **CLIヘルプおよびドキュメント全体の整合性修正・最新化**:
+  - CLI の使用方法・ヘルプ出力をパーセント表記対応に合わせて同期。
+  - `DIAGRAM.md` の処理フローを実際の引数・数値パース順序に同期。
+  - `SECURITY.md`（1.1.x 対応）、`TEST_REPORT.md`（v1.1.0 / `rustc 1.100.0` / 9単体テスト + 2 doctest）、`FOOTPRINTS.md`（`rustc 1.100.0` 実測値 143,872 バイト）、`ARCHITECTURE.md`、`INSTRUCTIONS.md`、`TODO.md`、`RELEASE.md`、`README.md`、`README_JA.md` を最新化・完全同期。
+
 ## [1.1.0] - 2026-10-27
 
 ### 変更 (Changed)
